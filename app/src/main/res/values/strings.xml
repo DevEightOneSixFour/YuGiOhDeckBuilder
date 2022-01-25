@@ -1,0 +1,113 @@
+<resources>
+    <string name="app_name">YuGiOhDeckBuilder</string>
+    <array name="main_types">
+        <item>Main Deck Type</item>
+        <item>Effect Monster</item>
+        <item>Flip Effect Monster</item>
+        <item>Flip Tuner Effect Monster</item>
+        <item>Gemini Monster</item>
+        <item>Normal Monster</item>
+        <item>Normal Tuner Monster</item>
+        <item>Pendulum Effect Monster</item>
+        <item>Pendulum Flip Effect Monster</item>
+        <item>Pendulum Normal Monster</item>
+        <item>Pendulum Tuner Effect Monster</item>
+        <item>Ritual Effect Monster</item>
+        <item>Ritual Monster</item>
+        <item>Skill Card</item>
+        <item>Spell Card</item>
+        <item>Spirit Monster</item>
+        <item>Toon Monster</item>
+        <item>Trap Card</item>
+        <item>Tuner Monster</item>
+        <item>Union Effect Monster</item>
+    </array>
+    <array name="extra_types">
+        <item>Extra Deck Type</item>
+        <item>Fusion Monster</item>
+        <item>Link Monster</item>
+        <item>Pendulum Effect Fusion Monster</item>
+        <item>Synchro Monster</item>
+        <item>Synchro Pendulum Effect Monster</item>
+        <item>Synchro Tuner Monster</item>
+        <item>XYZ Monster</item>
+        <item>XYZ Pendulum Effect Monster</item>
+    </array>
+    <array name="monster_races">
+        <item>Aqua</item>
+        <item>Beast</item>
+        <item>Beast-Warrior</item>
+        <item>Creator-God</item>
+        <item>Cyberse</item>
+        <item>Dinosaur</item>
+        <item>Divine-Beast</item>
+        <item>Dragon</item>
+        <item>Fairy</item>
+        <item>Fiend</item>
+        <item>Fish</item>
+        <item>Insect</item>
+        <item>Machine</item>
+        <item>Plant</item>
+        <item>Psychic</item>
+        <item>Pyro</item>
+        <item>Reptile</item>
+        <item>Rock</item>
+        <item>Sea Serpent</item>
+        <item>SpellCaster</item>
+        <item>Thunder</item>
+        <item>Warrior</item>
+        <item>Winged Beast</item>
+    </array>
+    <array name="spell_races">
+        <item>Normal</item>
+        <item>Field</item>
+        <item>Equip</item>
+        <item>Continuous</item>
+        <item>Quick-Play</item>
+        <item>Ritual</item>
+    </array>
+    <array name="trap_races">
+        <item>Normal</item>
+        <item>Continuous</item>
+        <item>Counter</item>
+    </array>
+    <array name="levels">
+        <item>Rank</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+    </array>
+    <array name="attributes">
+        <item>Attributes</item>
+        <item>Dark</item>
+        <item>Divine</item>
+        <item>Earth</item>
+        <item>Fire</item>
+        <item>Light</item>
+        <item>Water</item>
+        <item>Wind</item>
+    </array>
+    <array name="languages">
+        <item>English</item>
+        <item>French</item>
+        <item>German</item>
+        <item>Italian</item>
+        <item>Portuguese</item>
+    </array>
+</resources>
+
+<!--
+TODO
+archtype
+
+-->
