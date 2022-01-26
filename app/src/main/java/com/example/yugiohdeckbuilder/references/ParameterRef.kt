@@ -1,6 +1,9 @@
-package com.example.yugiohdeckbuilder.utils
+package com.example.yugiohdeckbuilder.references
 
 /*
+
+api documentation -> https://db.ygoprodeck.com/api-guide/
+
 Parameter "Race" values:
 *****Monster Cards
 Aqua

@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             android:id="@+id/nav_graph">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_filter">
+
+    <fragment
+        android:id="@+id/nav_filter"
+        android:name="com.example.yugiohdeckbuilder.ui.FilterFragment">
+
+        <action
+            android:id="@+id/action_nav_filter_to_nav_card_list"
+            app:destination="@id/nav_card_list"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_card_list"
+        android:name="com.example.yugiohdeckbuilder.ui.CardListFragment">
+
+        <action
+            android:id="@+id/action_nav_card_list_to_nav_card_detail"
+            app:destination="@id/nav_card_detail"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_card_detail"
+        android:name="com.example.yugiohdeckbuilder.ui.CardDetailsFragment">
+
+        <argument
+            android:name="card"
+            app:argType="com.example.yugiohdeckbuilder.data.model.response.Card"/>
+    </fragment>
 
 </navigation>
