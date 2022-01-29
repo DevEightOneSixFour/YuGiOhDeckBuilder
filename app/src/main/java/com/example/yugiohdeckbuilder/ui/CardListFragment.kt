@@ -14,10 +14,10 @@ import com.example.yugiohdeckbuilder.databinding.FragmentCardListBinding
 import com.example.yugiohdeckbuilder.di.DI
 import com.example.yugiohdeckbuilder.ui.adapter.CardAdapter
 
-class CardListFragment: Fragment() {
+class CardListFragment : Fragment() {
 
     private val binding by lazy { FragmentCardListBinding.inflate(layoutInflater) }
-    private val args : CardListFragmentArgs by navArgs()
+    private val args: CardListFragmentArgs by navArgs()
 
     private val viewModel by lazy {
         DI.provideViewModel(this)
@@ -57,7 +57,8 @@ class CardListFragment: Fragment() {
                 binding.apply {
                     progressBar.visibility = View.GONE
                     tvErrorText.visibility = View.GONE
-                    rvCardList.adapter = CardAdapter(state.response.data.orEmpty(), ::openCardDetail)
+                    rvCardList.adapter =
+                        CardAdapter(state.response.data.orEmpty(), ::openCardDetail)
                     rvCardList.layoutManager = GridLayoutManager(context, 3)
                     rvCardList.visibility = View.VISIBLE
                 }

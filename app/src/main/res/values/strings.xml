@@ -1,6 +1,28 @@
 <resources>
     <string name="app_name">YuGiOhDeckBuilder</string>
     <string name="fetch_all_cards">Fetch All Cards</string>
+    <string name="dismiss">Dismiss</string>
+
+<!--  Prices  -->
+    <string name="view_prices">Prices</string>
+    <string name="price_cardmarket">Card Market: €%s</string>
+    <string name="price_coolstuff">Cool Stuff: $%s</string>
+    <string name="price_tcgplayer">TCG Player: $%s</string>
+    <string name="price_ebay">eBay: $%s</string>
+    <string name="price_amazon">Amazon: $%s</string>
+
+<!--  Card Sets  -->
+    <string name="view_card_sets">Card Sets</string>
+
+<!--  Ban List   -->
+    <string name="view_ban_list">Ban List</string>
+    <string name="ban_tcg">TCG: %s</string>
+    <string name="ban_ocg">OCG: %s</string>
+    <string name="ban_goat">Goat: %s</string>
+    <string name="ban_never_banned">This card was never banned</string>
+    <string name="ban_not_banned_here">Not banned</string>
+
+<!--  Parameter Arrays  -->
     <array name="main_types">
         <item>Main Deck Type</item>
         <item>Effect Monster</item>

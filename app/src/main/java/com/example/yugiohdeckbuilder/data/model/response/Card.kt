@@ -21,7 +21,9 @@ data class Card(
     val cardImages: List<CardImage>,
     @SerializedName("card_prices")
     val cardPrices: List<CardPrice>,
+    @SerializedName("banlist_info")
+    val banListInfo: BanListInfo? = null,
     @SerializedName("misc_info")
     val miscInfo: List<MiscInfo>
-): Parcelable
+) : Parcelable
 

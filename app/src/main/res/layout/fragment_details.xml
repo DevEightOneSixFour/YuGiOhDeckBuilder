@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -15,80 +14,36 @@
             android:id="@+id/iv_large_card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/avatars" />
-        <LinearLayout
-            android:id="@+id/ll_left_side"
-            android:orientation="vertical"
+        <Button
+            android:id="@+id/btn_view_prices"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:text="@string/view_prices"
             app:layout_constraintTop_toBottomOf="@id/iv_large_card"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
-            <TextView
-                android:id="@+id/tv_card_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="Id: 123445"/>
-            <TextView
-                android:id="@+id/tv_card_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                tools:text="Name: Dark Blue Eyes Magician Dragon"/>
-            <TextView
-                android:id="@+id/tv_card_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="Type: Normal Monster"/>
-            <TextView
-                android:id="@+id/tv_card_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                tools:text="Description: This is the tools text of this card layout"/>
-            <TextView
-                android:id="@+id/tv_card_atk"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="Attack: 5000"/>
-            <TextView
-                android:id="@+id/tv_card_def"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="Defense: 5000"/>
-<!-- TODO update to rating scale           -->
-            <TextView
-                android:id="@+id/tv_card_level"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="Rank: 13"/>
-            <TextView
-                android:id="@+id/tv_card_race"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="Race: Aqua"/>
-            <TextView
-                android:id="@+id/tv_card_attribute"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="Attribute: LAUGH"/>
-
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/ll_right_side"
-            android:orientation="vertical"
+            app:layout_constraintEnd_toStartOf="@id/btn_view_card_sets"/>
+        <Button
+            android:id="@+id/btn_view_card_sets"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/view_card_sets"
             app:layout_constraintTop_toBottomOf="@id/iv_large_card"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toEndOf="@id/btn_view_prices"
+            app:layout_constraintEnd_toStartOf="@id/btn_view_ban_list"/>
+        <Button
+            android:id="@+id/btn_view_ban_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/view_ban_list"
+            app:layout_constraintStart_toEndOf="@id/btn_view_card_sets"
+            app:layout_constraintTop_toBottomOf="@id/iv_large_card"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
