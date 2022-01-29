@@ -19,7 +19,7 @@ class CardViewModel(private val useCase: CardUseCase): ViewModel() {
     val randomLiveData: LiveData<YUIState>
         get() = _randomLiveData
 
-    suspend fun fetchCards(
+    fun fetchCards(
         name: String?,
         archetype: String?,
         level: String?,

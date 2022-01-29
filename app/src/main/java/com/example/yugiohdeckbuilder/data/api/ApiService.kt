@@ -9,25 +9,27 @@ import retrofit2.http.Query
 interface ApiService {
 
     @GET("cardinfo.php")
-    fun getCards(
-        @Query("name") name: String? = null,
-        @Query("archetype") archetype: String? = null,
-        @Query("level") level: String? = null,
-        @Query("attribute") attribute: String? = null,
-        @Query("sort") sort: String? = null,
-        @Query("banlist") banList: String? = null,
-        @Query("cardset") cardSet: String? = null,
-        @Query("fname") fName: String? = null,
-        @Query("type") type: String? = null,
-        @Query("race") race: String? = null,
-        @Query("format") format: String? = null,
-        @Query("linkmarker") linkMarker: String? = null,
-        @Query("staple") staple: String? = null,
-        @Query("language") language: String? = "en"
+    suspend fun getCards(
+        @Query("name") name: String?,
+        @Query("archetype") archetype: String?,
+        @Query("level") level: String?,
+        @Query("attribute") attribute: String?,
+        @Query("sort") sort: String?,
+        @Query("banlist") banList: String?,
+        @Query("cardset") cardSet: String?,
+        @Query("fname") fName: String?,
+        @Query("type") type: String?,
+        @Query("race") race: String?,
+        @Query("format") format: String?,
+        @Query("linkmarker") linkMarker: String?,
+        @Query("staple") staple: String?,
+        @Query("language") language: String?,
+//        @Query("num") num: Int = 21,
+//        @Query("offset") offset: Int = 0
     ): Response<YuGiOhResponse>
 
     @GET("randomcard.php")
-    fun getRandomCard(): Response<Card>
+    suspend fun getRandomCard(): Response<Card>
 }
 
 /*

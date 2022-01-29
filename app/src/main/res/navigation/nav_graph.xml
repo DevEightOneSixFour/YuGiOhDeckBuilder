@@ -10,7 +10,10 @@
 
         <action
             android:id="@+id/action_nav_filter_to_nav_card_list"
-            app:destination="@id/nav_card_list"/>
+            app:destination="@id/nav_card_list" />
+        <action
+            android:id="@+id/action_nav_filter_to_nav_card_details"
+            app:destination="@id/nav_card_detail" />
 
     </fragment>
 
@@ -20,7 +23,78 @@
 
         <action
             android:id="@+id/action_nav_card_list_to_nav_card_detail"
-            app:destination="@id/nav_card_detail"/>
+            app:destination="@id/nav_card_detail" />
+
+        <argument
+            android:name="name"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="archetype"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="level"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="attribute"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="sort"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="banList"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="cardSet"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="fName"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="type"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="race"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="format"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="linkMarker"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="staple"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="language"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 
     <fragment
@@ -29,7 +103,7 @@
 
         <argument
             android:name="card"
-            app:argType="com.example.yugiohdeckbuilder.data.model.response.Card"/>
+            app:argType="com.example.yugiohdeckbuilder.data.model.response.Card" />
     </fragment>
 
 </navigation>

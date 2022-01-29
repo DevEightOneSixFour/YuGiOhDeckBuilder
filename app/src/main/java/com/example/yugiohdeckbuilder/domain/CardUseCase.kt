@@ -4,6 +4,7 @@ import com.example.yugiohdeckbuilder.data.model.YUIState
 import kotlinx.coroutines.flow.Flow
 
 class CardUseCase(private val repository: CardRepository) {
+
     suspend fun getCards(
         name: String?,
         archetype: String?,

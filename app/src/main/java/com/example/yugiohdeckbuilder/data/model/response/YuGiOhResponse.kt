@@ -5,5 +5,5 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class YuGiOhResponse(
-    val data: List<Card>
+    val data: List<Card>? = emptyList()
 ): Parcelable

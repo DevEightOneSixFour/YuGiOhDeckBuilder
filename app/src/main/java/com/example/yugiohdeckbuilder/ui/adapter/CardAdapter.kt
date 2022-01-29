@@ -1,4 +1,4 @@
-package com.example.yugiohdeckbuilder.ui
+package com.example.yugiohdeckbuilder.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -40,7 +40,7 @@ class CardViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun onBind(card: Card, details: (Card) -> Unit) {
-        binding.tvCardName.text = card.name
+//        binding.tvCardName.text = card.name
 
         Glide.with(binding.ivCardThumbnail)
             .load(card.cardImages[0].imageUrlSmall)
