@@ -10,6 +10,7 @@
     <string name="price_tcgplayer">TCG Player: $%s</string>
     <string name="price_ebay">eBay: $%s</string>
     <string name="price_amazon">Amazon: $%s</string>
+    <string name="unavailable">Unavailable</string>
 
 <!--  Card Sets  -->
     <string name="view_card_sets">Card Sets</string>

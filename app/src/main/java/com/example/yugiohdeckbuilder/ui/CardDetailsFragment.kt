@@ -1,5 +1,6 @@
 package com.example.yugiohdeckbuilder.ui
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,13 +12,17 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.example.yugiohdeckbuilder.R
 import com.example.yugiohdeckbuilder.databinding.CardDetailsListViewBinding
 import com.example.yugiohdeckbuilder.databinding.FragmentDetailsBinding
 
 class CardDetailsFragment : Fragment() {
 
-    private val binding by lazy { FragmentDetailsBinding.inflate(layoutInflater) }
+    private lateinit var binding: FragmentDetailsBinding
     private val args: CardDetailsFragmentArgs by navArgs()
     private lateinit var priceArray: Array<String>
     private lateinit var cardSetArray: Array<String>
@@ -29,7 +34,10 @@ class CardDetailsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = binding.root
+    ): View {
+        binding = FragmentDetailsBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,6 +46,7 @@ class CardDetailsFragment : Fragment() {
 
         Glide.with(binding.ivLargeCard)
             .load(args.card.cardImages[0].imageUrl)
+            .placeholder(resources.getDrawable(R.drawable.back_ground,null))
             .into(binding.ivLargeCard)
 
         binding.apply {

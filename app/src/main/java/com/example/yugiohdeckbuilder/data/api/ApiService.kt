@@ -24,8 +24,8 @@ interface ApiService {
         @Query("linkmarker") linkMarker: String?,
         @Query("staple") staple: String?,
         @Query("language") language: String?,
-        @Query("num") num: Int = 21,
-        @Query("offset") offset: Int = 0
+//        @Query("num") num: Int = 21,
+//        @Query("offset") offset: Int = 0
     ): Response<YuGiOhResponse>
 
     @GET("randomcard.php")
