@@ -14,6 +14,9 @@
 
 <!--  Card Sets  -->
     <string name="view_card_sets">Card Sets</string>
+    <string name="card_set_rarity">Set Rarity: %s</string>
+    <string name="card_set_price">Set Price: $%s</string>
+    <string name="card_set_list">Card Set List</string>
 
 <!--  Ban List   -->
     <string name="view_ban_list">Ban List</string>
@@ -23,7 +26,7 @@
     <string name="ban_never_banned">This card was never banned</string>
     <string name="ban_not_banned_here">Not banned</string>
 
-<!--  Parameter Arrays  -->
+    <!--  Parameter Arrays  -->
     <array name="main_types">
         <item>Main Deck Type</item>
         <item>Effect Monster</item>
@@ -132,6 +135,6 @@
 
 <!--
 TODO
-archtype
-
+archetype
+name filter
 -->

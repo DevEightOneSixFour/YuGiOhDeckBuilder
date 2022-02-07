@@ -101,9 +101,24 @@
         android:id="@+id/nav_card_detail"
         android:name="com.example.yugiohdeckbuilder.ui.CardDetailsFragment">
 
+        <action android:id="@+id/action_nav_card_detail_to_nav_card_set_list"
+            app:destination="@id/nav_card_set_list"/>
+
         <argument
             android:name="card"
             app:argType="com.example.yugiohdeckbuilder.data.model.response.Card" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_card_set_list"
+        android:name="com.example.yugiohdeckbuilder.ui.CardSetBottomSheet">
+
+        <argument
+            android:name="cardSetList"
+            app:argType="com.example.yugiohdeckbuilder.data.model.response.CardSet[]"/>
+
+
     </fragment>
 
 </navigation>

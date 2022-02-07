@@ -1,6 +1,5 @@
 package com.example.yugiohdeckbuilder.ui
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,15 +9,13 @@ import android.widget.Button
 import android.widget.ListView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import com.example.yugiohdeckbuilder.R
 import com.example.yugiohdeckbuilder.databinding.CardDetailsListViewBinding
 import com.example.yugiohdeckbuilder.databinding.FragmentDetailsBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class CardDetailsFragment : Fragment() {
 
@@ -54,33 +51,17 @@ class CardDetailsFragment : Fragment() {
                 handleButtonClick(it as Button)
             }
             btnViewCardSets.setOnClickListener {
-                handleButtonClick(it as Button)
+                //TODO Update cardset to bottom sheet dialog
+                it.findNavController().navigate(
+                    CardDetailsFragmentDirections
+                        .actionNavCardDetailToNavCardSetList(args.card.cardSets.toTypedArray())
+                )
             }
             btnViewBanList.setOnClickListener {
-                if (args.card.banListInfo != null) {
-                    banArray = arrayOf(
-                        resources.getString(
-                            R.string.ban_tcg,
-                            args.card.banListInfo?.banTCG ?: resources.getString(
-                                R.string.ban_not_banned_here
-                            )
-                        ),
-                        resources.getString(
-                            R.string.ban_ocg,
-                            args.card.banListInfo?.banOCG ?: resources.getString(
-                                R.string.ban_not_banned_here
-                            )
-                        ),
-                        resources.getString(
-                            R.string.ban_goat,
-                            args.card.banListInfo?.banGOAT ?: resources.getString(
-                                R.string.ban_not_banned_here
-                            )
-                        )
-                    )
-                    handleButtonClick(it as Button)
-                } else {
+                if (banArray.isEmpty()) {
                     showCardDetails(emptyArray(), resources.getString(R.string.ban_never_banned))
+                } else {
+                    handleButtonClick(it as Button)
                 }
             }
         }
@@ -91,9 +72,9 @@ class CardDetailsFragment : Fragment() {
             binding.btnViewPrices.id -> {
                 showCardDetails(priceArray, btn.text)
             }
-            binding.btnViewCardSets.id -> {
-                showCardDetails(cardSetArray, btn.text)
-            }
+//            binding.btnViewCardSets.id -> {
+//                showCardDetails(cardSetArray, btn.text)
+//            }
             binding.btnViewBanList.id -> {
                 showCardDetails(banArray, btn.text)
             }
@@ -124,5 +105,30 @@ class CardDetailsFragment : Fragment() {
             resources.getString(R.string.price_ebay, args.card.cardPrices[0].ebayPrice),
             resources.getString(R.string.price_amazon, args.card.cardPrices[0].amazonPrice)
         )
+
+        if (args.card.banListInfo != null) {
+            banArray = arrayOf(
+                resources.getString(
+                    R.string.ban_tcg,
+                    args.card.banListInfo?.banTCG ?: resources.getString(
+                        R.string.ban_not_banned_here
+                    )
+                ),
+                resources.getString(
+                    R.string.ban_ocg,
+                    args.card.banListInfo?.banOCG ?: resources.getString(
+                        R.string.ban_not_banned_here
+                    )
+                ),
+                resources.getString(
+                    R.string.ban_goat,
+                    args.card.banListInfo?.banGOAT ?: resources.getString(
+                        R.string.ban_not_banned_here
+                    )
+                )
+            )
+        } else {
+            banArray = emptyArray()
+        }
     }
 }
