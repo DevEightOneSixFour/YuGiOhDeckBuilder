@@ -37,55 +37,111 @@
             android:text="@string/no_type"/>
     </RadioGroup>
 
-    <LinearLayout
-        android:id="@+id/ll_spinners"
-        android:orientation="vertical"
-        android:background="@color/white"
-        android:layout_margin="8dp"
+    <View
+        android:id="@+id/v_middle_barrier"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="1dp"
+        android:visibility="invisible"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <RadioGroup
+        android:id="@+id/rg_monster_deck_types"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/v_middle_barrier">
+
+        <RadioButton
+            android:id="@+id/rb_main_deck_monsters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_deck"/>
+        <RadioButton
+            android:id="@+id/rb_extra_deck_monsters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/extra_deck"/>
+    </RadioGroup>
 
         <Spinner
             android:id="@+id/spn_main_types"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/main_types"/>
+            android:entries="@array/main_types"
+            android:background="@color/white"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/v_middle_barrier"
+            />
         <Spinner
             android:id="@+id/spn_extra_types"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/extra_types"/>
+            android:background="@color/white"
+            android:entries="@array/extra_types"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/v_middle_barrier"/>
         <Spinner
             android:id="@+id/spn_monster_races"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/monster_races"/>
+            android:background="@color/white"
+            android:entries="@array/monster_races"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/spn_main_types"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/spn_levels"/>
         <Spinner
             android:id="@+id/spn_levels"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/levels"/>
+            android:background="@color/white"
+            android:entries="@array/levels"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/spn_main_types"
+            app:layout_constraintStart_toEndOf="@id/spn_monster_races"
+            app:layout_constraintEnd_toStartOf="@id/spn_attributes"/>
         <Spinner
             android:id="@+id/spn_attributes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/attributes"/>
+            android:background="@color/white"
+            android:entries="@array/attributes"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/spn_main_types"
+            app:layout_constraintStart_toEndOf="@id/spn_levels"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
         <Spinner
             android:id="@+id/spn_spell_races"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/spell_races"/>
+            android:background="@color/white"
+            android:entries="@array/spell_races"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/v_middle_barrier"/>
         <Spinner
             android:id="@+id/spn_trap_races"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/trap_races"/>
-    </LinearLayout>
-
+            android:background="@color/white"
+            android:entries="@array/trap_races"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/v_middle_barrier"/>
 
     <Spinner
         android:id="@+id/spn_languages"

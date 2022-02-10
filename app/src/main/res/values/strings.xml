@@ -3,7 +3,7 @@
     <string name="fetch_all_cards">Fetch All Cards</string>
     <string name="dismiss">Dismiss</string>
 
-<!--  Prices  -->
+    <!--  Prices  -->
     <string name="view_prices">Prices</string>
     <string name="price_cardmarket">Card Market: €%s</string>
     <string name="price_coolstuff">Cool Stuff: $%s</string>
@@ -12,13 +12,13 @@
     <string name="price_amazon">Amazon: $%s</string>
     <string name="unavailable">Unavailable</string>
 
-<!--  Card Sets  -->
+    <!--  Card Sets  -->
     <string name="view_card_sets">Card Sets</string>
     <string name="card_set_rarity">Set Rarity: %s</string>
     <string name="card_set_price">Set Price: $%s</string>
     <string name="card_set_list">Card Set List</string>
 
-<!--  Ban List   -->
+    <!--  Ban List   -->
     <string name="view_ban_list">Ban List</string>
     <string name="ban_tcg">TCG: %s</string>
     <string name="ban_ocg">OCG: %s</string>
@@ -52,6 +52,8 @@
     <!-- todo might move this to constants?   -->
     <string name="spell_card">Spell Card</string>
     <string name="trap_card">Trap Card</string>
+    <string name="main_deck">Main Deck</string>
+    <string name="extra_deck">Extra Deck</string>
 
     <string-array name="extra_types">
         <item>Extra Deck Type</item>
@@ -152,8 +154,8 @@
     <string name="no_type">No Type</string>
 </resources>
 
-<!--
-TODO
-archetype
-name filter
--->
+    <!--
+    TODO
+    archetype
+    name filter
+    -->

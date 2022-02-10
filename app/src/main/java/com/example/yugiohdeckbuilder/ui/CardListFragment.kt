@@ -38,7 +38,6 @@ class CardListFragment : Fragment() {
         viewModel.cardLiveData.observe(viewLifecycleOwner, {
             updateYUI(it)
         })
-        Log.d("*****", "CardListVM: $viewModel")
     }
 
     private fun updateYUI(state: YUIState) {

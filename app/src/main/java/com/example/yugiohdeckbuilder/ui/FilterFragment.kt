@@ -17,9 +17,9 @@ import com.example.yugiohdeckbuilder.di.DI
 import com.example.yugiohdeckbuilder.presentation.CardViewModel
 import com.example.yugiohdeckbuilder.utils.*
 
-class FilterFragment: Fragment() {
+class FilterFragment : Fragment() {
 
-    private lateinit var binding : FragmentFilterBinding
+    private lateinit var binding: FragmentFilterBinding
     private lateinit var viewModel: CardViewModel
 
     override fun onCreateView(
@@ -40,6 +40,9 @@ class FilterFragment: Fragment() {
         binding.rgTypes.setOnCheckedChangeListener { radioGroup, _ ->
             updateFilters(radioGroup.checkedRadioButtonId)
         }
+        binding.rgMonsterDeckTypes.setOnCheckedChangeListener { radioGroup, _ ->
+            updateFilters(radioGroup.checkedRadioButtonId)
+        }
 
         binding.btnSearch.setOnClickListener {
             this.findNavController().navigate(
@@ -57,36 +60,85 @@ class FilterFragment: Fragment() {
 
     private fun configureObservers() {
         viewModel.currentType.observe(viewLifecycleOwner, { type ->
-            when (type) {
-                CardType.MONSTER -> {
-                    Toast.makeText(context, CardType.MONSTER.name, Toast.LENGTH_SHORT).show()
-                }
-                CardType.SPELL -> {
-                    Toast.makeText(context, CardType.SPELL.name, Toast.LENGTH_SHORT).show()
-                }
-                CardType.TRAP -> {
-                    Toast.makeText(context, CardType.TRAP.name, Toast.LENGTH_SHORT).show()
-                }
-                CardType.NO_TYPE -> {
-                    Toast.makeText(context, CardType.NO_TYPE.name, Toast.LENGTH_SHORT).show()
-                }
+            when (type) { //todo update UI spinners and search button here
+                CardType.MONSTER -> deckFilterUpdate(true)
+                CardType.EXTRA -> deckFilterUpdate(false)
+                CardType.SPELL -> spellTrapFilterUpdate(true)
+                CardType.TRAP -> spellTrapFilterUpdate(false)
+                CardType.NO_TYPE -> clearFilters()
             }
         })
-        Log.d("*****", "FilterFragmentVM: $viewModel")
+    }
+
+    private fun clearFilters() {
+        binding.run {
+            spnSpellRaces.visibility = View.GONE
+            spnTrapRaces.visibility = View.GONE
+            rgMonsterDeckTypes.visibility = View.GONE
+            spnExtraTypes.visibility = View.GONE
+            spnMainTypes.visibility = View.GONE
+            spnMonsterRaces.visibility = View.GONE
+            spnAttributes.visibility = View.GONE
+            spnLevels.visibility = View.GONE
+        }
+    }
+
+    private fun deckFilterUpdate(isMainDeck: Boolean) {
+        binding.run {
+            spnSpellRaces.visibility = View.GONE
+            spnTrapRaces.visibility = View.GONE
+            rgMonsterDeckTypes.visibility = View.VISIBLE
+            if (isMainDeck) {
+                spnMainTypes.visibility = View.VISIBLE
+                spnExtraTypes.visibility = View.GONE
+            } else {
+                spnMainTypes.visibility = View.INVISIBLE
+                spnExtraTypes.visibility = View.VISIBLE
+            }
+            spnMonsterRaces.visibility = View.VISIBLE
+            spnAttributes.visibility = View.VISIBLE
+            spnLevels.visibility = View.VISIBLE
+        }
+    }
+
+    private fun spellTrapFilterUpdate(isSpell: Boolean) {
+        binding.run {
+            rgMonsterDeckTypes.visibility = View.GONE
+            spnMainTypes.visibility = View.GONE
+            spnExtraTypes.visibility = View.GONE
+            spnMonsterRaces.visibility = View.GONE
+            spnAttributes.visibility = View.GONE
+            spnLevels.visibility = View.GONE
+
+            if (isSpell) {
+                spnSpellRaces.visibility = View.VISIBLE
+                spnTrapRaces.visibility = View.GONE
+            } else {
+                spnSpellRaces.visibility = View.GONE
+                spnTrapRaces.visibility = View.VISIBLE
+            }
+        }
     }
 
     private fun updateFilters(btnId: Int) {
-        when(btnId) {
-            binding.rbMonster.id -> viewModel.updateSelectedType(CardType.MONSTER)
+        when (btnId) {
+            binding.rbMonster.id, binding.rbMainDeckMonsters.id -> viewModel.updateSelectedType(
+                CardType.MONSTER
+            )
+            binding.rbExtraDeckMonsters.id -> viewModel.updateSelectedType(CardType.EXTRA)
             binding.rbSpell.id -> viewModel.updateSelectedType(CardType.SPELL)
             binding.rbTrap.id -> viewModel.updateSelectedType(CardType.TRAP)
             else -> viewModel.updateSelectedType(CardType.NO_TYPE)
         }
     }
+
     private fun getFilterType(): String? {
         return when (viewModel.currentType.value) {
             CardType.MONSTER -> {
                 binding.spnMainTypes.selectedItem.toString()
+            }
+            CardType.EXTRA -> {
+                binding.spnExtraTypes.selectedItem.toString()
             }
             CardType.SPELL -> {
                 resources.getString(R.string.spell_card)
@@ -97,9 +149,11 @@ class FilterFragment: Fragment() {
             else -> null
         }
     }
+
+    // todo when no_type is selected
     private fun getFilterRace(): String? {
         return when (viewModel.currentType.value) {
-            CardType.MONSTER -> {
+            CardType.MONSTER, CardType.EXTRA -> {
                 if (binding.spnMonsterRaces.selectedItemPosition == 0) {
                     null
                 } else {
@@ -125,7 +179,10 @@ class FilterFragment: Fragment() {
     }
 
     private fun getFilterText(spinner: Spinner): String? {
-        return if (viewModel.currentType.value != CardType.MONSTER) {
+        return if (viewModel.currentType.value == CardType.SPELL ||
+            viewModel.currentType.value == CardType.TRAP ||
+            viewModel.currentType.value == CardType.NO_TYPE
+        ) {
             null
         } else {
             when (spinner.selectedItemPosition) {
