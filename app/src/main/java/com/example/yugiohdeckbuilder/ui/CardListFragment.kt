@@ -1,10 +1,12 @@
 package com.example.yugiohdeckbuilder.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,28 +14,31 @@ import com.example.yugiohdeckbuilder.data.model.YUIState
 import com.example.yugiohdeckbuilder.data.model.response.Card
 import com.example.yugiohdeckbuilder.databinding.FragmentCardListBinding
 import com.example.yugiohdeckbuilder.di.DI
+import com.example.yugiohdeckbuilder.presentation.CardViewModel
 import com.example.yugiohdeckbuilder.ui.adapter.CardAdapter
 
 class CardListFragment : Fragment() {
 
-    private val binding by lazy { FragmentCardListBinding.inflate(layoutInflater) }
+    private lateinit var binding : FragmentCardListBinding
+    private lateinit var viewModel : CardViewModel
     private val args: CardListFragmentArgs by navArgs()
-
-    private val viewModel by lazy {
-        DI.provideViewModel(this)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
+        binding = FragmentCardListBinding.inflate(layoutInflater)
+        viewModel = ViewModelProvider(requireActivity())[CardViewModel::class.java]
+        configureObservers()
+        fetchCardData()
+        return binding.root
+    }
+    private fun configureObservers() {
         viewModel.cardLiveData.observe(viewLifecycleOwner, {
             updateYUI(it)
         })
-        fetchCardData()
-        return binding.root
+        Log.d("*****", "CardListVM: $viewModel")
     }
 
     private fun updateYUI(state: YUIState) {

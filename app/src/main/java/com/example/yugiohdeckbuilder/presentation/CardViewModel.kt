@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.yugiohdeckbuilder.data.model.YUIState
 import com.example.yugiohdeckbuilder.domain.CardUseCase
+import com.example.yugiohdeckbuilder.utils.CardType
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -18,6 +19,10 @@ class CardViewModel(private val useCase: CardUseCase): ViewModel() {
     private val _randomLiveData = MutableLiveData<YUIState>()
     val randomLiveData: LiveData<YUIState>
         get() = _randomLiveData
+
+    private val _currentType = MutableLiveData<CardType>()
+    val currentType: LiveData<CardType>
+    get() = _currentType
 
     fun fetchCards(
         name: String?,
@@ -63,5 +68,9 @@ class CardViewModel(private val useCase: CardUseCase): ViewModel() {
                 _randomLiveData.postValue(it)
             }
         }
+    }
+
+    fun updateSelectedType(type: CardType) {
+        _currentType.value = type
     }
 }

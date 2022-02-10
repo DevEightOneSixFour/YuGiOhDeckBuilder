@@ -12,18 +12,18 @@ interface ApiService {
     suspend fun getCards(
         @Query("name") name: String?,
         @Query("archetype") archetype: String?,
-        @Query("level") level: String?,
-        @Query("attribute") attribute: String?,
+        @Query("level") level: String?, //*
+        @Query("attribute") attribute: String?, //*
         @Query("sort") sort: String?,
         @Query("banlist") banList: String?,
         @Query("cardset") cardSet: String?,
         @Query("fname") fName: String?,
-        @Query("type") type: String?,
-        @Query("race") race: String?,
+        @Query("type") type: String?, //*
+        @Query("race") race: String?, //*
         @Query("format") format: String?,
         @Query("linkmarker") linkMarker: String?,
         @Query("staple") staple: String?,
-        @Query("language") language: String?,
+        @Query("language") language: String?, //*
         @Query("num") num: Int = 21,
         @Query("offset") offset: Int = 0
     ): Response<YuGiOhResponse>

@@ -27,7 +27,9 @@
     <string name="ban_not_banned_here">Not banned</string>
 
     <!--  Parameter Arrays  -->
-    <array name="main_types">
+    <!--  Monster  -->
+    <!--  Main & Extra types use the same filter, should be separated -->
+    <string-array name="main_types">
         <item>Main Deck Type</item>
         <item>Effect Monster</item>
         <item>Flip Effect Monster</item>
@@ -41,26 +43,30 @@
         <item>Pendulum Tuner Effect Monster</item>
         <item>Ritual Effect Monster</item>
         <item>Ritual Monster</item>
-        <item>Skill Card</item>
-        <item>Spell Card</item>
         <item>Spirit Monster</item>
         <item>Toon Monster</item>
-        <item>Trap Card</item>
         <item>Tuner Monster</item>
         <item>Union Effect Monster</item>
-    </array>
-    <array name="extra_types">
+    </string-array>
+
+    <!-- todo might move this to constants?   -->
+    <string name="spell_card">Spell Card</string>
+    <string name="trap_card">Trap Card</string>
+
+    <string-array name="extra_types">
         <item>Extra Deck Type</item>
         <item>Fusion Monster</item>
         <item>Link Monster</item>
         <item>Pendulum Effect Fusion Monster</item>
+        <item>Skill Card</item>
         <item>Synchro Monster</item>
         <item>Synchro Pendulum Effect Monster</item>
         <item>Synchro Tuner Monster</item>
         <item>XYZ Monster</item>
         <item>XYZ Pendulum Effect Monster</item>
-    </array>
-    <array name="monster_races">
+    </string-array>
+    <string-array name="monster_races">
+        <item>Races</item>
         <item>Aqua</item>
         <item>Beast</item>
         <item>Beast-Warrior</item>
@@ -84,21 +90,8 @@
         <item>Thunder</item>
         <item>Warrior</item>
         <item>Winged Beast</item>
-    </array>
-    <array name="spell_races">
-        <item>Normal</item>
-        <item>Field</item>
-        <item>Equip</item>
-        <item>Continuous</item>
-        <item>Quick-Play</item>
-        <item>Ritual</item>
-    </array>
-    <array name="trap_races">
-        <item>Normal</item>
-        <item>Continuous</item>
-        <item>Counter</item>
-    </array>
-    <array name="levels">
+    </string-array>
+    <string-array name="levels">
         <item>Rank</item>
         <item>1</item>
         <item>2</item>
@@ -113,8 +106,8 @@
         <item>11</item>
         <item>12</item>
         <item>13</item>
-    </array>
-    <array name="attributes">
+    </string-array>
+    <string-array name="attributes">
         <item>Attributes</item>
         <item>Dark</item>
         <item>Divine</item>
@@ -123,14 +116,40 @@
         <item>Light</item>
         <item>Water</item>
         <item>Wind</item>
-    </array>
-    <array name="languages">
+    </string-array>
+
+    <!-- Spell   -->
+    <string-array name="spell_races">
+        <item>Spell Type</item>
+        <item>Normal</item>
+        <item>Field</item>
+        <item>Equip</item>
+        <item>Continuous</item>
+        <item>Quick-Play</item>
+        <item>Ritual</item>
+    </string-array>
+
+    <!-- Trap   -->
+    <string-array name="trap_races">
+        <item>Trap Type</item>
+        <item>Normal</item>
+        <item>Continuous</item>
+        <item>Counter</item>
+    </string-array>
+
+    <!--  Languages  -->
+    <string-array name="languages">
         <item>English</item>
         <item>French</item>
         <item>German</item>
         <item>Italian</item>
         <item>Portuguese</item>
-    </array>
+    </string-array>
+
+    <string name="monster">Monster</string>
+    <string name="spell">Spell</string>
+    <string name="trap">Trap</string>
+    <string name="no_type">No Type</string>
 </resources>
 
 <!--
