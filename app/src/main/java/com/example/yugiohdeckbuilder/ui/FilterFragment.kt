@@ -122,9 +122,8 @@ class FilterFragment : Fragment() {
 
     private fun updateFilters(btnId: Int) {
         when (btnId) {
-            binding.rbMonster.id, binding.rbMainDeckMonsters.id -> viewModel.updateSelectedType(
-                CardType.MONSTER
-            )
+            binding.rbMonster.id, binding.rbMainDeckMonsters.id ->
+                viewModel.updateSelectedType(CardType.MONSTER)
             binding.rbExtraDeckMonsters.id -> viewModel.updateSelectedType(CardType.EXTRA)
             binding.rbSpell.id -> viewModel.updateSelectedType(CardType.SPELL)
             binding.rbTrap.id -> viewModel.updateSelectedType(CardType.TRAP)
