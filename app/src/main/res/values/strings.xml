@@ -1,7 +1,14 @@
 <resources>
     <string name="app_name">YuGiOhDeckBuilder</string>
-    <string name="fetch_all_cards">Fetch All Cards</string>
+    <string name="fetch_all_cards">Search Cards</string>
+    <string name="fetch_monster_cards">Search Monster Cards</string>
+    <string name="fetch_spell_cards">Search Spell Cards</string>
+    <string name="fetch_trap_cards">Search Trap Cards</string>
     <string name="dismiss">Dismiss</string>
+    <string name="monster">Monster</string>
+    <string name="spell">Spell</string>
+    <string name="trap">Trap</string>
+    <string name="no_type">No Type</string>
 
     <!--  Prices  -->
     <string name="view_prices">Prices</string>
@@ -147,11 +154,6 @@
         <item>Italian</item>
         <item>Portuguese</item>
     </string-array>
-
-    <string name="monster">Monster</string>
-    <string name="spell">Spell</string>
-    <string name="trap">Trap</string>
-    <string name="no_type">No Type</string>
 </resources>
 
     <!--

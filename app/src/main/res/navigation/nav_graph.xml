@@ -25,6 +25,7 @@
             android:id="@+id/action_nav_card_list_to_nav_card_detail"
             app:destination="@id/nav_card_detail" />
 
+<!--     CardListFragment(name: String, archetype:String....)   -->
         <argument
             android:name="name"
             android:defaultValue="@null"

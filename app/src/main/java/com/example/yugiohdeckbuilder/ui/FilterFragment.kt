@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -45,22 +46,59 @@ class FilterFragment : Fragment() {
         }
 
         binding.btnSearch.setOnClickListener {
-            this.findNavController().navigate(
-                FilterFragmentDirections.actionNavFilterToNavCardList(
-                    name = null, //todo
-                    type = getFilterType(),
-                    race = getFilterRace(),
-                    level = getFilterText(binding.spnLevels),
-                    attribute = getFilterText(binding.spnAttributes),
-                    language = getFilterLanguage(binding.spnLanguages)
-                )
-            )
+            moveToCardList()
+//            displaySelectedFilters()
         }
+    }
+
+    /*
+     TODO should display selected filters
+        for the respective card type
+        in an alert dialog, before
+        prompting the user to search
+        with the selected filters
+
+                You Selected
+        Monster, Effect Monster, 4, Dark
+         [go back]  [search with these filters]
+     */
+
+    private fun displaySelectedFilters() {
+        val listOfFilters = mutableListOf<String>()
+        when(viewModel.currentType.value) {
+            CardType.MONSTER -> {
+                listOfFilters.run {
+                    add(binding.spnMainTypes.selectedItem.toString())
+                }
+            }
+            CardType.EXTRA -> {
+
+            }
+            CardType.SPELL -> {
+
+            }
+            CardType.TRAP -> {
+
+            }
+        }
+
+    }
+    private fun moveToCardList() {
+        this.findNavController().navigate(
+            FilterFragmentDirections.actionNavFilterToNavCardList(
+                name = null, //todo
+                type = getFilterType(),
+                race = getFilterRace(),
+                level = getFilterText(binding.spnLevels),
+                attribute = getFilterText(binding.spnAttributes),
+                language = getFilterLanguage(binding.spnLanguages)
+            )
+        )
     }
 
     private fun configureObservers() {
         viewModel.currentType.observe(viewLifecycleOwner, { type ->
-            when (type) { //todo update UI spinners and search button here
+            when (type) {
                 CardType.MONSTER -> deckFilterUpdate(true)
                 CardType.EXTRA -> deckFilterUpdate(false)
                 CardType.SPELL -> spellTrapFilterUpdate(true)
@@ -84,6 +122,7 @@ class FilterFragment : Fragment() {
     }
 
     private fun deckFilterUpdate(isMainDeck: Boolean) {
+        //todo update UI spinners and search button here
         binding.run {
             spnSpellRaces.visibility = View.GONE
             spnTrapRaces.visibility = View.GONE
