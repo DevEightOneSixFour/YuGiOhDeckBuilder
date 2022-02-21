@@ -8,7 +8,7 @@
     <string name="monster">Monster</string>
     <string name="spell">Spell</string>
     <string name="trap">Trap</string>
-    <string name="no_type">No Type</string>
+    <string name="no_type">No Filter</string>
 
     <!--  Prices  -->
     <string name="view_prices">Prices</string>

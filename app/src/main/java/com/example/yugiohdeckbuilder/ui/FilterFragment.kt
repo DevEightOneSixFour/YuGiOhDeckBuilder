@@ -1,20 +1,15 @@
 package com.example.yugiohdeckbuilder.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Spinner
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.yugiohdeckbuilder.R
 import com.example.yugiohdeckbuilder.databinding.FragmentFilterBinding
-import com.example.yugiohdeckbuilder.di.DI
 import com.example.yugiohdeckbuilder.presentation.CardViewModel
 import com.example.yugiohdeckbuilder.utils.*
 
@@ -51,6 +46,11 @@ class FilterFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        clearFilters()
+    }
+
     /*
      TODO should display selected filters
         for the respective card type
@@ -65,7 +65,7 @@ class FilterFragment : Fragment() {
 
     private fun displaySelectedFilters() {
         val listOfFilters = mutableListOf<String>()
-        when(viewModel.currentType.value) {
+        when (viewModel.currentType.value) {
             CardType.MONSTER -> {
                 listOfFilters.run {
                     add(binding.spnMainTypes.selectedItem.toString())
@@ -83,6 +83,7 @@ class FilterFragment : Fragment() {
         }
 
     }
+
     private fun moveToCardList() {
         this.findNavController().navigate(
             FilterFragmentDirections.actionNavFilterToNavCardList(
@@ -107,6 +108,11 @@ class FilterFragment : Fragment() {
             }
         })
     }
+
+    /*
+     TODO clear filters on return to this page
+        and reselect no_filter button
+     */
 
     private fun clearFilters() {
         binding.run {
