@@ -62,7 +62,6 @@ class FilterFragment : Fragment() {
         Monster, Effect Monster, 4, Dark
          [go back]  [search with these filters]
      */
-
     private fun displaySelectedFilters() {
         val listOfFilters = mutableListOf<String>()
         when (viewModel.currentType.value) {
@@ -100,19 +99,27 @@ class FilterFragment : Fragment() {
     private fun configureObservers() {
         viewModel.currentType.observe(viewLifecycleOwner, { type ->
             when (type) {
-                CardType.MONSTER -> deckFilterUpdate(true)
+                CardType.MONSTER ->  {
+                    deckFilterUpdate(true)
+                    binding.btnSearch.text = resources.getString(R.string.fetch_monster_cards)
+                }
                 CardType.EXTRA -> deckFilterUpdate(false)
-                CardType.SPELL -> spellTrapFilterUpdate(true)
-                CardType.TRAP -> spellTrapFilterUpdate(false)
-                CardType.NO_TYPE -> clearFilters()
+                CardType.SPELL -> {
+                    spellTrapFilterUpdate(true)
+                    binding.btnSearch.text = resources.getString(R.string.fetch_spell_cards)
+                }
+                CardType.TRAP -> {
+                    spellTrapFilterUpdate(false)
+                    binding.btnSearch.text = resources.getString(R.string.fetch_trap_cards)
+                }
+                CardType.NO_TYPE -> {
+                    clearFilters()
+                    binding.btnSearch.text = resources.getString(R.string.fetch_all_cards)
+                }
             }
         })
     }
 
-    /*
-     TODO clear filters on return to this page
-        and reselect no_filter button
-     */
     private fun clearFilters() {
         binding.run {
             rbNoType.isChecked = true
@@ -149,7 +156,6 @@ class FilterFragment : Fragment() {
     }
 
     private fun deckFilterUpdate(isMainDeck: Boolean) {
-        //todo update UI spinners and search button here
         binding.run {
             spnSpellRaces.visibility = View.GONE
             spnTrapRaces.visibility = View.GONE
