@@ -113,17 +113,38 @@ class FilterFragment : Fragment() {
      TODO clear filters on return to this page
         and reselect no_filter button
      */
-
     private fun clearFilters() {
         binding.run {
-            spnSpellRaces.visibility = View.GONE
-            spnTrapRaces.visibility = View.GONE
+            rbNoType.isChecked = true
             rgMonsterDeckTypes.visibility = View.GONE
-            spnExtraTypes.visibility = View.GONE
-            spnMainTypes.visibility = View.GONE
-            spnMonsterRaces.visibility = View.GONE
-            spnAttributes.visibility = View.GONE
-            spnLevels.visibility = View.GONE
+            spnExtraTypes.run {
+                setSelection(0)
+                visibility = View.GONE
+            }
+            spnMainTypes.run {
+                setSelection(0)
+                visibility = View.GONE
+            }
+            spnMonsterRaces.run {
+                setSelection(0)
+                visibility = View.GONE
+            }
+            spnAttributes.run {
+                setSelection(0)
+                visibility = View.GONE
+            }
+            spnLevels.run {
+                setSelection(0)
+                visibility = View.GONE
+            }
+            spnSpellRaces.run {
+                setSelection(0)
+                visibility = View.GONE
+            }
+            spnTrapRaces.run {
+                setSelection(0)
+                visibility = View.GONE
+            }
         }
     }
 
@@ -134,9 +155,11 @@ class FilterFragment : Fragment() {
             spnTrapRaces.visibility = View.GONE
             rgMonsterDeckTypes.visibility = View.VISIBLE
             if (isMainDeck) {
+                rbMainDeckMonsters.isChecked = true
                 spnMainTypes.visibility = View.VISIBLE
                 spnExtraTypes.visibility = View.GONE
             } else {
+                rbExtraDeckMonsters.isChecked = true
                 spnMainTypes.visibility = View.INVISIBLE
                 spnExtraTypes.visibility = View.VISIBLE
             }
@@ -167,9 +190,14 @@ class FilterFragment : Fragment() {
 
     private fun updateFilters(btnId: Int) {
         when (btnId) {
-            binding.rbMonster.id, binding.rbMainDeckMonsters.id ->
-                viewModel.updateSelectedType(CardType.MONSTER)
-            binding.rbExtraDeckMonsters.id -> viewModel.updateSelectedType(CardType.EXTRA)
+            binding.rbMonster.id -> viewModel.updateSelectedType(CardType.MONSTER)
+            binding.rbMainDeckMonsters.id -> {
+                deckFilterUpdate(true)
+            }
+            binding.rbExtraDeckMonsters.id ->  {
+                viewModel.updateSelectedType(CardType.EXTRA)
+                deckFilterUpdate(false)
+            }
             binding.rbSpell.id -> viewModel.updateSelectedType(CardType.SPELL)
             binding.rbTrap.id -> viewModel.updateSelectedType(CardType.TRAP)
             else -> viewModel.updateSelectedType(CardType.NO_TYPE)
@@ -177,24 +205,24 @@ class FilterFragment : Fragment() {
     }
 
     private fun getFilterType(): String? {
-        return when (viewModel.currentType.value) {
-            CardType.MONSTER -> {
-                binding.spnMainTypes.selectedItem.toString()
+        return when (binding.rgTypes.checkedRadioButtonId) {
+            binding.rbMonster.id -> {
+                if (binding.rbMainDeckMonsters.isChecked) {
+                    binding.spnMainTypes.selectedItem.toString()
+                } else {
+                    binding.spnExtraTypes.selectedItem.toString()
+                }
             }
-            CardType.EXTRA -> {
-                binding.spnExtraTypes.selectedItem.toString()
-            }
-            CardType.SPELL -> {
+            binding.rbSpell.id  -> {
                 resources.getString(R.string.spell_card)
             }
-            CardType.TRAP -> {
+            binding.rbTrap.id  -> {
                 resources.getString(R.string.trap_card)
             }
             else -> null
         }
     }
 
-    // todo when no_type is selected
     private fun getFilterRace(): String? {
         return when (viewModel.currentType.value) {
             CardType.MONSTER, CardType.EXTRA -> {

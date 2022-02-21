@@ -61,6 +61,7 @@
     <string name="trap_card">Trap Card</string>
     <string name="main_deck">Main Deck</string>
     <string name="extra_deck">Extra Deck</string>
+    <string name="pages">Pages?</string>
 
     <string-array name="extra_types">
         <item>Extra Deck Type</item>
