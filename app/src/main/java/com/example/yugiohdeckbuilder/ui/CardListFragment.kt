@@ -1,7 +1,6 @@
 package com.example.yugiohdeckbuilder.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.yugiohdeckbuilder.data.model.YUIState
 import com.example.yugiohdeckbuilder.data.model.response.Card
 import com.example.yugiohdeckbuilder.databinding.FragmentCardListBinding
-import com.example.yugiohdeckbuilder.di.DI
 import com.example.yugiohdeckbuilder.presentation.CardViewModel
 import com.example.yugiohdeckbuilder.ui.adapter.CardAdapter
 
@@ -35,7 +33,7 @@ class CardListFragment : Fragment() {
         return binding.root
     }
     private fun configureObservers() {
-        viewModel.cardLiveData.observe(viewLifecycleOwner, {
+        viewModel.cardListLiveData.observe(viewLifecycleOwner, {
             updateYUI(it)
         })
     }

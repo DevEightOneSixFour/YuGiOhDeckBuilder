@@ -12,9 +12,13 @@ import kotlinx.coroutines.launch
 
 class CardViewModel(private val useCase: CardUseCase): ViewModel() {
 
-    private val _cardLiveData = MutableLiveData<YUIState>()
-    val cardLiveData: LiveData<YUIState>
-        get() = _cardLiveData
+    private val _cardListLiveData = MutableLiveData<YUIState>()
+    val cardListLiveData: LiveData<YUIState>
+        get() = _cardListLiveData
+
+    private val _cardByNameLiveData = MutableLiveData<YUIState>()
+    val cardByNameLiveData: LiveData<YUIState>
+        get() = _cardByNameLiveData
 
     private val _randomLiveData = MutableLiveData<YUIState>()
     val randomLiveData: LiveData<YUIState>
@@ -57,7 +61,15 @@ class CardViewModel(private val useCase: CardUseCase): ViewModel() {
                 staple = staple,
                 language = language
             ).collect {
-                _cardLiveData.postValue(it)
+                _cardListLiveData.postValue(it)
+            }
+        }
+    }
+
+    fun fetchCardByName(fName: String?) {
+        viewModelScope.launch {
+            useCase.getCardByName(fName).collect {
+                _cardByNameLiveData.postValue(it)
             }
         }
     }

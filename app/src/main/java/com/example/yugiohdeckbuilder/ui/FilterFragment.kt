@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.yugiohdeckbuilder.R
 import com.example.yugiohdeckbuilder.data.model.YUIState
-import com.example.yugiohdeckbuilder.data.model.response.YuGiOhResponse
 import com.example.yugiohdeckbuilder.databinding.FragmentFilterBinding
 import com.example.yugiohdeckbuilder.presentation.CardViewModel
 import com.example.yugiohdeckbuilder.utils.*
@@ -45,7 +45,8 @@ class FilterFragment : Fragment() {
         }
 
         binding.actvFname.addTextChangedListener {
-            viewModel.fetchCards(fName = it.toString().trim())
+            binding.pbNameFilter.visibility = View.VISIBLE
+            viewModel.fetchCardByName(fName = it.toString().trim())
         }
 
         binding.btnSearch.setOnClickListener {
@@ -54,8 +55,8 @@ class FilterFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         clearFilters()
     }
 
@@ -88,13 +89,12 @@ class FilterFragment : Fragment() {
 
             }
         }
-
     }
 
     private fun moveToCardList() {
         this.findNavController().navigate(
             FilterFragmentDirections.actionNavFilterToNavCardList(
-                name = null, //todo
+                fName = getByCardName(),
                 type = getFilterType(),
                 race = getFilterRace(),
                 level = getFilterText(binding.spnLevels),
@@ -107,17 +107,21 @@ class FilterFragment : Fragment() {
     private fun configureObservers() {
         viewModel.currentType.observe(viewLifecycleOwner, { type ->
             when (type) {
+                CardType.NAME -> {
+                    nameUIUpdate()
+                    binding.btnSearch.text = resources.getString(R.string.fetch_named_cards)
+                }
                 CardType.MONSTER -> {
-                    deckFilterUpdate(true)
+                    deckUIUpdate(true)
                     binding.btnSearch.text = resources.getString(R.string.fetch_monster_cards)
                 }
-                CardType.EXTRA -> deckFilterUpdate(false)
+                CardType.EXTRA -> deckUIUpdate(false)
                 CardType.SPELL -> {
-                    spellTrapFilterUpdate(true)
+                    spellTrapUIUpdate(true)
                     binding.btnSearch.text = resources.getString(R.string.fetch_spell_cards)
                 }
                 CardType.TRAP -> {
-                    spellTrapFilterUpdate(false)
+                    spellTrapUIUpdate(false)
                     binding.btnSearch.text = resources.getString(R.string.fetch_trap_cards)
                 }
                 CardType.NO_TYPE -> {
@@ -127,8 +131,11 @@ class FilterFragment : Fragment() {
             }
         })
 
-        viewModel.cardLiveData.observe(viewLifecycleOwner, { uiState ->
+        viewModel.cardByNameLiveData.observe(viewLifecycleOwner, { uiState ->
             when (uiState) {
+                is YUIState.Loading -> {
+
+                }
                 is YUIState.SuccessList -> {
                     binding.run {
                         pbNameFilter.visibility = View.GONE
@@ -141,11 +148,6 @@ class FilterFragment : Fragment() {
                         )
                     }
                 }
-                is YUIState.Loading -> {
-                    binding.run {
-                        pbNameFilter.visibility = View.VISIBLE
-                    }
-                }
                 is YUIState.Error -> {
                     binding.run {
                         pbNameFilter.visibility = View.GONE
@@ -156,9 +158,12 @@ class FilterFragment : Fragment() {
         })
     }
 
+    // TODO Name filter visibility
     private fun clearFilters() {
         binding.run {
             rbNoType.isChecked = true
+            pbNameFilter.visibility = View.GONE
+            tilNameFilter.visibility = View.GONE
             rgMonsterDeckTypes.visibility = View.GONE
             spnExtraTypes.run {
                 setSelection(0)
@@ -191,10 +196,28 @@ class FilterFragment : Fragment() {
         }
     }
 
-    private fun deckFilterUpdate(isMainDeck: Boolean) {
+    private fun nameUIUpdate() {
         binding.run {
+            actvFname.text.clear()
+            tilNameFilter.visibility = View.VISIBLE
+            pbNameFilter.visibility = View.GONE
+            rgMonsterDeckTypes.visibility = View.GONE
+            spnMainTypes.visibility = View.GONE
+            spnExtraTypes.visibility = View.GONE
+            spnMonsterRaces.visibility = View.GONE
+            spnAttributes.visibility = View.GONE
+            spnLevels.visibility = View.GONE
             spnSpellRaces.visibility = View.GONE
             spnTrapRaces.visibility = View.GONE
+        }
+    }
+
+    private fun deckUIUpdate(isMainDeck: Boolean) {
+        binding.run {
+            tilNameFilter.visibility = View.GONE
+            spnSpellRaces.visibility = View.GONE
+            spnTrapRaces.visibility = View.GONE
+            pbNameFilter.visibility = View.GONE
             rgMonsterDeckTypes.visibility = View.VISIBLE
             if (isMainDeck) {
                 rbMainDeckMonsters.isChecked = true
@@ -211,8 +234,10 @@ class FilterFragment : Fragment() {
         }
     }
 
-    private fun spellTrapFilterUpdate(isSpell: Boolean) {
+    private fun spellTrapUIUpdate(isSpell: Boolean) {
         binding.run {
+            pbNameFilter.visibility = View.GONE
+            tilNameFilter.visibility = View.GONE
             rgMonsterDeckTypes.visibility = View.GONE
             spnMainTypes.visibility = View.GONE
             spnExtraTypes.visibility = View.GONE
@@ -232,17 +257,26 @@ class FilterFragment : Fragment() {
 
     private fun updateFilters(btnId: Int) {
         when (btnId) {
+            binding.rbName.id -> viewModel.updateSelectedType(CardType.NAME)
             binding.rbMonster.id -> viewModel.updateSelectedType(CardType.MONSTER)
             binding.rbMainDeckMonsters.id -> {
-                deckFilterUpdate(true)
+                deckUIUpdate(true)
             }
             binding.rbExtraDeckMonsters.id -> {
                 viewModel.updateSelectedType(CardType.EXTRA)
-                deckFilterUpdate(false)
+                deckUIUpdate(false)
             }
             binding.rbSpell.id -> viewModel.updateSelectedType(CardType.SPELL)
             binding.rbTrap.id -> viewModel.updateSelectedType(CardType.TRAP)
             else -> viewModel.updateSelectedType(CardType.NO_TYPE)
+        }
+    }
+
+    private fun getByCardName(): String? {
+        return if (binding.rgTypes.checkedRadioButtonId == binding.rbName.id) {
+            binding.actvFname.text.toString().trim()
+        } else {
+            null
         }
     }
 

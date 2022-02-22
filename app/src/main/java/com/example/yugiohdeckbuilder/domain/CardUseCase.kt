@@ -37,5 +37,6 @@ class CardUseCase(private val repository: CardRepository) {
         language = language
     )
 
+    suspend fun getCardByName(fName: String?) = repository.getCardByName(fName = fName)
     suspend fun getRandomCard() = repository.getRandomCard()
 }

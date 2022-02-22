@@ -28,6 +28,11 @@ interface ApiService {
 //        @Query("offset") offset: Int = 0
     ): Response<YuGiOhResponse>
 
+    @GET("cardinfo.php")
+    suspend fun getCardByName(
+        @Query("fname") fName: String?
+    ): Response<YuGiOhResponse>
+
     @GET("randomcard.php")
     suspend fun getRandomCard(): Response<Card>
 }

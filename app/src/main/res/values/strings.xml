@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">YuGiOhDeckBuilder</string>
-    <string name="fetch_all_cards">Search Cards</string>
+    <string name="fetch_all_cards">Search All Cards</string>
+    <string name="fetch_named_cards">Search By Name</string>
     <string name="fetch_monster_cards">Search Monster Cards</string>
     <string name="fetch_spell_cards">Search Spell Cards</string>
     <string name="fetch_trap_cards">Search Trap Cards</string>
@@ -37,7 +38,6 @@
     <!--  Monster  -->
     <!--  Main & Extra types use the same filter, should be separated -->
     <string-array name="main_types">
-        <item>Please Select Main Deck Type</item>
         <item>Effect Monster</item>
         <item>Flip Effect Monster</item>
         <item>Flip Tuner Effect Monster</item>
@@ -61,16 +61,16 @@
     <string name="trap_card">Trap Card</string>
     <string name="main_deck">Main Deck</string>
     <string name="extra_deck">Extra Deck</string>
-    <string name="pages">Pages?</string>
     <string name="filter_by">Filter By</string>
     <string name="name">Name</string>
     <string name="enter_card_name">Enter Card Name</string>
     <string name="error_network">Failed network response</string>
     <string name="error_response">Empty Response</string>
     <string name="cannot_find">Cannot Find Name</string>
+    <string name="error_no_card_type">Please Select A Card Type</string>
+    <string name="finding_names">Searching names...</string>
 
     <string-array name="extra_types">
-        <item>Please Select Extra Deck Type</item>
         <item>Fusion Monster</item>
         <item>Link Monster</item>
         <item>Pendulum Effect Fusion Monster</item>

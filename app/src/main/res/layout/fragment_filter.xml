@@ -110,8 +110,7 @@
             style="@style/Widget.MaterialComponents.AutoCompleteTextView.FilledBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/enter_card_name"
-            android:completionThreshold="1"/>
+            android:hint="@string/enter_card_name" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <ProgressBar
@@ -119,6 +118,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintEnd_toEndOf="@id/til_name_filter"
         app:layout_constraintTop_toTopOf="@id/til_name_filter"
         app:layout_constraintBottom_toBottomOf="@id/til_name_filter"/>
@@ -130,6 +130,7 @@
         android:background="@color/white"
         android:entries="@array/main_types"
         android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/v_middle_barrier" />

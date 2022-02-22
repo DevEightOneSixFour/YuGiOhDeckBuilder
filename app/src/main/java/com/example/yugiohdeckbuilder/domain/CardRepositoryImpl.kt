@@ -5,7 +5,7 @@ import com.example.yugiohdeckbuilder.data.model.YUIState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class CardRepositoryImpl(private val service: ApiService): CardRepository  {
+class CardRepositoryImpl(private val service: ApiService) : CardRepository {
     override suspend fun getCards(
         name: String?,
         archetype: String?,
@@ -42,7 +42,24 @@ class CardRepositoryImpl(private val service: ApiService): CardRepository  {
                 language = language
             )
 
-            if(response.isSuccessful) {
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    emit(YUIState.SuccessList(it))
+                } ?: run {
+                    emit(YUIState.Error("Empty response"))
+                }
+            } else {
+                emit(YUIState.Error("Failed network response"))
+            }
+        }
+
+    override suspend fun getCardByName(fName: String?): Flow<YUIState> =
+        flow {
+            emit(YUIState.Loading)
+
+            val response = service.getCardByName(fName)
+
+            if (response.isSuccessful) {
                 response.body()?.let {
                     emit(YUIState.SuccessList(it))
                 } ?: run {
@@ -59,7 +76,7 @@ class CardRepositoryImpl(private val service: ApiService): CardRepository  {
 
             val response = service.getRandomCard()
 
-            if(response.isSuccessful) {
+            if (response.isSuccessful) {
                 response.body()?.let {
                     emit(YUIState.SuccessCard(it))
                 } ?: run {

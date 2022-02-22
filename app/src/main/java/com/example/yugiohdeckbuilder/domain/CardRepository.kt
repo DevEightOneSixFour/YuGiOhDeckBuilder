@@ -22,5 +22,6 @@ interface CardRepository {
         language: String?
     ): Flow<YUIState>
 
+    suspend fun getCardByName(fName: String?): Flow<YUIState>
     suspend fun getRandomCard(): Flow<YUIState>
 }
