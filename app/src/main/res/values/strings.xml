@@ -37,7 +37,7 @@
     <!--  Monster  -->
     <!--  Main & Extra types use the same filter, should be separated -->
     <string-array name="main_types">
-        <item>Main Deck Type</item>
+        <item>Please Select Main Deck Type</item>
         <item>Effect Monster</item>
         <item>Flip Effect Monster</item>
         <item>Flip Tuner Effect Monster</item>
@@ -62,9 +62,15 @@
     <string name="main_deck">Main Deck</string>
     <string name="extra_deck">Extra Deck</string>
     <string name="pages">Pages?</string>
+    <string name="filter_by">Filter By</string>
+    <string name="name">Name</string>
+    <string name="enter_card_name">Enter Card Name</string>
+    <string name="error_network">Failed network response</string>
+    <string name="error_response">Empty Response</string>
+    <string name="cannot_find">Cannot Find Name</string>
 
     <string-array name="extra_types">
-        <item>Extra Deck Type</item>
+        <item>Please Select Extra Deck Type</item>
         <item>Fusion Monster</item>
         <item>Link Monster</item>
         <item>Pendulum Effect Fusion Monster</item>

@@ -1,42 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/back_ground">
+
+    <TextView
+        android:id="@+id/tv_filter_by"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:text="@string/filter_by"
+        android:textSize="32sp"
+        android:layout_margin="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
         android:id="@+id/rg_types"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="@color/white"
         android:checkedButton="@id/rb_no_type"
-        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/tv_filter_by">
+
+        <RadioButton
+            android:id="@+id/rb_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name" />
 
         <RadioButton
             android:id="@+id/rb_monster"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/monster"/>
+            android:text="@string/monster" />
+
         <RadioButton
             android:id="@+id/rb_spell"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/spell"/>
+            android:text="@string/spell" />
+
         <RadioButton
             android:id="@+id/rb_trap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/trap"/>
+            android:text="@string/trap" />
+
         <RadioButton
             android:id="@+id/rb_no_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/no_type"/>
+            android:text="@string/no_type" />
     </RadioGroup>
 
     <View
@@ -44,126 +65,161 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:visibility="invisible"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
         android:id="@+id/rg_monster_deck_types"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="@color/white"
-        android:visibility="gone"
-        tools:visibility="visible"
         android:checkedButton="@id/rb_main_deck_monsters"
-        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/v_middle_barrier"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/v_middle_barrier">
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible">
 
         <RadioButton
             android:id="@+id/rb_main_deck_monsters"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/main_deck"/>
+            android:text="@string/main_deck" />
+
         <RadioButton
             android:id="@+id/rb_extra_deck_monsters"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/extra_deck"/>
+            android:text="@string/extra_deck" />
     </RadioGroup>
 
-        <Spinner
-            android:id="@+id/spn_main_types"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:entries="@array/main_types"
-            android:background="@color/white"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/v_middle_barrier"
-            />
-        <Spinner
-            android:id="@+id/spn_extra_types"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:entries="@array/extra_types"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/v_middle_barrier"/>
-        <Spinner
-            android:id="@+id/spn_monster_races"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:entries="@array/monster_races"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/spn_main_types"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/spn_levels"/>
-        <Spinner
-            android:id="@+id/spn_levels"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:entries="@array/levels"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/spn_main_types"
-            app:layout_constraintStart_toEndOf="@id/spn_monster_races"
-            app:layout_constraintEnd_toStartOf="@id/spn_attributes"/>
-        <Spinner
-            android:id="@+id/spn_attributes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:entries="@array/attributes"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/spn_main_types"
-            app:layout_constraintStart_toEndOf="@id/spn_levels"
-            app:layout_constraintEnd_toEndOf="parent"/>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_name_filter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rg_types">
 
-        <Spinner
-            android:id="@+id/spn_spell_races"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/actv_fname"
+            style="@style/Widget.MaterialComponents.AutoCompleteTextView.FilledBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:entries="@array/spell_races"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/v_middle_barrier"/>
-        <Spinner
-            android:id="@+id/spn_trap_races"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:entries="@array/trap_races"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/v_middle_barrier"/>
+            android:hint="@string/enter_card_name"
+            android:completionThreshold="1"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_name_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/til_name_filter"
+        app:layout_constraintTop_toTopOf="@id/til_name_filter"
+        app:layout_constraintBottom_toBottomOf="@id/til_name_filter"/>
+
+    <Spinner
+        android:id="@+id/spn_main_types"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:entries="@array/main_types"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_middle_barrier" />
+
+    <Spinner
+        android:id="@+id/spn_extra_types"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:entries="@array/extra_types"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_middle_barrier" />
+
+    <Spinner
+        android:id="@+id/spn_monster_races"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:entries="@array/monster_races"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/spn_levels"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spn_main_types" />
+
+    <Spinner
+        android:id="@+id/spn_levels"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:entries="@array/levels"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/spn_attributes"
+        app:layout_constraintStart_toEndOf="@id/spn_monster_races"
+        app:layout_constraintTop_toBottomOf="@id/spn_main_types" />
+
+    <Spinner
+        android:id="@+id/spn_attributes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:entries="@array/attributes"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/spn_levels"
+        app:layout_constraintTop_toBottomOf="@id/spn_main_types" />
+
+    <Spinner
+        android:id="@+id/spn_spell_races"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:entries="@array/spell_races"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spn_trap_races"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:entries="@array/trap_races"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/spn_languages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:entries="@array/languages"
         android:background="@color/white"
+        android:entries="@array/languages"
         app:layout_constraintBottom_toTopOf="@id/btn_search"
-        app:layout_constraintStart_toStartOf="@id/btn_search"
-        app:layout_constraintEnd_toEndOf="@id/btn_search"/>
+        app:layout_constraintEnd_toEndOf="@id/btn_search"
+        app:layout_constraintStart_toStartOf="@id/btn_search" />
+
     <Button
         android:id="@+id/btn_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/fetch_all_cards"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

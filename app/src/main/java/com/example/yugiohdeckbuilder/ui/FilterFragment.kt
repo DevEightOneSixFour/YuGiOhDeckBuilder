@@ -4,11 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Spinner
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.yugiohdeckbuilder.R
+import com.example.yugiohdeckbuilder.data.model.YUIState
+import com.example.yugiohdeckbuilder.data.model.response.YuGiOhResponse
 import com.example.yugiohdeckbuilder.databinding.FragmentFilterBinding
 import com.example.yugiohdeckbuilder.presentation.CardViewModel
 import com.example.yugiohdeckbuilder.utils.*
@@ -38,6 +42,10 @@ class FilterFragment : Fragment() {
         }
         binding.rgMonsterDeckTypes.setOnCheckedChangeListener { radioGroup, _ ->
             updateFilters(radioGroup.checkedRadioButtonId)
+        }
+
+        binding.actvFname.addTextChangedListener {
+            viewModel.fetchCards(fName = it.toString().trim())
         }
 
         binding.btnSearch.setOnClickListener {
@@ -99,7 +107,7 @@ class FilterFragment : Fragment() {
     private fun configureObservers() {
         viewModel.currentType.observe(viewLifecycleOwner, { type ->
             when (type) {
-                CardType.MONSTER ->  {
+                CardType.MONSTER -> {
                     deckFilterUpdate(true)
                     binding.btnSearch.text = resources.getString(R.string.fetch_monster_cards)
                 }
@@ -115,6 +123,34 @@ class FilterFragment : Fragment() {
                 CardType.NO_TYPE -> {
                     clearFilters()
                     binding.btnSearch.text = resources.getString(R.string.fetch_all_cards)
+                }
+            }
+        })
+
+        viewModel.cardLiveData.observe(viewLifecycleOwner, { uiState ->
+            when (uiState) {
+                is YUIState.SuccessList -> {
+                    binding.run {
+                        pbNameFilter.visibility = View.GONE
+                        actvFname.setAdapter(
+                            ArrayAdapter(
+                                requireContext(),
+                                android.R.layout.select_dialog_item,
+                                uiState.response.toFName(requireContext())
+                            )
+                        )
+                    }
+                }
+                is YUIState.Loading -> {
+                    binding.run {
+                        pbNameFilter.visibility = View.VISIBLE
+                    }
+                }
+                is YUIState.Error -> {
+                    binding.run {
+                        pbNameFilter.visibility = View.GONE
+                        actvFname.error = resources.getString(R.string.cannot_find)
+                    }
                 }
             }
         })
@@ -200,7 +236,7 @@ class FilterFragment : Fragment() {
             binding.rbMainDeckMonsters.id -> {
                 deckFilterUpdate(true)
             }
-            binding.rbExtraDeckMonsters.id ->  {
+            binding.rbExtraDeckMonsters.id -> {
                 viewModel.updateSelectedType(CardType.EXTRA)
                 deckFilterUpdate(false)
             }
@@ -219,10 +255,10 @@ class FilterFragment : Fragment() {
                     binding.spnExtraTypes.selectedItem.toString()
                 }
             }
-            binding.rbSpell.id  -> {
+            binding.rbSpell.id -> {
                 resources.getString(R.string.spell_card)
             }
-            binding.rbTrap.id  -> {
+            binding.rbTrap.id -> {
                 resources.getString(R.string.trap_card)
             }
             else -> null
