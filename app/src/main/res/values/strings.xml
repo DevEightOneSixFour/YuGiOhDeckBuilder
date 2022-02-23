@@ -33,6 +33,14 @@
     <string name="ban_goat">Goat: %s</string>
     <string name="ban_never_banned">This card was never banned</string>
     <string name="ban_not_banned_here">Not banned</string>
+    
+    <!-- Filter Dialog   -->
+    <string name="selected_filter_title">Selected Filters</string>
+    <string name="selected_filter_change">Change filters</string>
+    <string name="selected_filter_submit">Search with these</string>
+    <string name="selected_filter_empty_button">Yes</string>
+    <string name="selected_filter_empty_title">No Filters Selected</string>
+    <string name="selected_filter_empty_list">Search All Cards?</string>
 
     <!--  Parameter Arrays  -->
     <!--  Monster  -->
@@ -68,7 +76,6 @@
     <string name="error_response">Empty Response</string>
     <string name="cannot_find">Cannot Find Name</string>
     <string name="error_no_card_type">Please Select A Card Type</string>
-    <string name="finding_names">Searching names...</string>
 
     <string-array name="extra_types">
         <item>Fusion Monster</item>

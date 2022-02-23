@@ -1,6 +1,8 @@
 package com.example.yugiohdeckbuilder.ui
 
+import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.yugiohdeckbuilder.R
 import com.example.yugiohdeckbuilder.data.model.YUIState
+import com.example.yugiohdeckbuilder.databinding.CustomFilterAlertBinding
 import com.example.yugiohdeckbuilder.databinding.FragmentFilterBinding
 import com.example.yugiohdeckbuilder.presentation.CardViewModel
 import com.example.yugiohdeckbuilder.utils.*
@@ -20,6 +23,7 @@ import com.example.yugiohdeckbuilder.utils.*
 class FilterFragment : Fragment() {
 
     private lateinit var binding: FragmentFilterBinding
+    private lateinit var alertBinding: CustomFilterAlertBinding
     private lateinit var viewModel: CardViewModel
 
     override fun onCreateView(
@@ -50,14 +54,29 @@ class FilterFragment : Fragment() {
         }
 
         binding.btnSearch.setOnClickListener {
-            moveToCardList()
-//            displaySelectedFilters()
+            displaySelectedFilters()
         }
     }
 
     override fun onStart() {
         super.onStart()
+        Log.d("*****", "onStart")
         clearFilters()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("*****", "onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("*****", "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("*****", "onStop")
     }
 
     /*
@@ -77,17 +96,78 @@ class FilterFragment : Fragment() {
             CardType.MONSTER -> {
                 listOfFilters.run {
                     add(binding.spnMainTypes.selectedItem.toString())
+                    if (binding.spnMonsterRaces.selectedItemPosition != 0) {
+                        add(binding.spnMonsterRaces.selectedItem.toString())
+                    }
+                    if (binding.spnLevels.selectedItemPosition != 0) {
+                        add(binding.spnLevels.selectedItem.toString())
+                    }
+                    if (binding.spnAttributes.selectedItemPosition != 0) {
+                        add(binding.spnAttributes.selectedItem.toString())
+                    }
                 }
             }
             CardType.EXTRA -> {
-
+                listOfFilters.run {
+                    add(binding.spnExtraTypes.selectedItem.toString())
+                    if (binding.spnMonsterRaces.selectedItemPosition != 0) {
+                        add(binding.spnMonsterRaces.selectedItem.toString())
+                    }
+                    if (binding.spnLevels.selectedItemPosition != 0) {
+                        add(binding.spnLevels.selectedItem.toString())
+                    }
+                    if (binding.spnAttributes.selectedItemPosition != 0) {
+                        add(binding.spnAttributes.selectedItem.toString())
+                    }
+                }
             }
             CardType.SPELL -> {
-
+                listOfFilters.run {
+                    add(resources.getString(R.string.spell_card))
+                    if (binding.spnSpellRaces.selectedItemPosition != 0) {
+                        add(binding.spnSpellRaces.selectedItem.toString())
+                    }
+                }
             }
             CardType.TRAP -> {
-
+                listOfFilters.run {
+                    add(resources.getString(R.string.trap_card))
+                    if (binding.spnTrapRaces.selectedItemPosition != 0) {
+                        add(binding.spnTrapRaces.selectedItem.toString())
+                    }
+                }
             }
+        }
+
+        buildFilterAlertView(listOfFilters)
+    }
+
+    private fun buildFilterAlertView(list: List<String>) {
+        val builder = AlertDialog.Builder(requireContext()).create()
+        alertBinding = CustomFilterAlertBinding.inflate(layoutInflater)
+
+        with(builder) {
+            alertBinding.run {
+                if (list.isEmpty()) {
+                    tvFilterAlertTitle.text =
+                        resources.getString(R.string.selected_filter_empty_title)
+                    tvFilterAlertList.text =
+                        resources.getString(R.string.selected_filter_empty_list)
+                    btnFilterAlertSearch.text =
+                        resources.getString(R.string.selected_filter_empty_button)
+                } else {
+                    tvFilterAlertList.text = list.joinToString(" | ")
+                }
+                btnFilterAlertSearch.setOnClickListener {
+                    builder.dismiss()
+                    moveToCardList()
+                }
+                btnFilterAlertDismiss.setOnClickListener {
+                    builder.dismiss()
+                }
+            }
+            setView(alertBinding.root)
+            show()
         }
     }
 
