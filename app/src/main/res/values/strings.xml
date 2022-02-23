@@ -69,9 +69,12 @@
     <string name="trap_card">Trap Card</string>
     <string name="main_deck">Main Deck</string>
     <string name="extra_deck">Extra Deck</string>
+
+    <!--  Others to Categorize  -->
     <string name="filter_by">Filter By</string>
     <string name="name">Name</string>
     <string name="enter_card_name">Enter Card Name</string>
+    <string name="please_enter_card_name">Please Enter Card Name</string>
     <string name="error_network">Failed network response</string>
     <string name="error_response">Empty Response</string>
     <string name="cannot_find">Cannot Find Name</string>

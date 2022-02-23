@@ -1,6 +1,5 @@
 package com.example.yugiohdeckbuilder.ui
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -91,8 +90,17 @@ class FilterFragment : Fragment() {
          [go back]  [search with these filters]
      */
     private fun displaySelectedFilters() {
+        var showAlert = true
         val listOfFilters = mutableListOf<String>()
         when (viewModel.currentType.value) {
+            CardType.NAME -> {
+                if (binding.actvFname.text.toString() == "") {
+                    showAlert = false
+                    binding.actvFname.error = resources.getString(R.string.please_enter_card_name)
+                } else {
+                    listOfFilters.add(binding.actvFname.text.toString())
+                }
+            }
             CardType.MONSTER -> {
                 listOfFilters.run {
                     add(binding.spnMainTypes.selectedItem.toString())
@@ -138,8 +146,9 @@ class FilterFragment : Fragment() {
                 }
             }
         }
-
-        buildFilterAlertView(listOfFilters)
+        if (showAlert) {
+            buildFilterAlertView(listOfFilters)
+        }
     }
 
     private fun buildFilterAlertView(list: List<String>) {
@@ -213,9 +222,6 @@ class FilterFragment : Fragment() {
 
         viewModel.cardByNameLiveData.observe(viewLifecycleOwner, { uiState ->
             when (uiState) {
-                is YUIState.Loading -> {
-
-                }
                 is YUIState.SuccessList -> {
                     binding.run {
                         pbNameFilter.visibility = View.GONE
