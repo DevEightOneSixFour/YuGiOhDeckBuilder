@@ -59,23 +59,7 @@ class FilterFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        Log.d("*****", "onStart")
         clearFilters()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("*****", "onResume")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("*****", "onPause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("*****", "onStop")
     }
 
     /*

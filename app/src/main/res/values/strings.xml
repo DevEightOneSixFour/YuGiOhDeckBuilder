@@ -25,6 +25,7 @@
     <string name="card_set_rarity">Set Rarity: %s</string>
     <string name="card_set_price">Set Price: $%s</string>
     <string name="card_set_list">Card Set List</string>
+    <string name="card_set_empty">No sets found</string>
 
     <!--  Ban List   -->
     <string name="view_ban_list">Ban List</string>
