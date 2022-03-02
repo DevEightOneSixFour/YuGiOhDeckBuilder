@@ -20,7 +20,9 @@ class CardRepositoryImpl(private val service: ApiService) : CardRepository {
         format: String?,
         linkMarker: String?,
         staple: String?,
-        language: String?
+        language: String?,
+        num: Int?,
+        offset: Int?
     ): Flow<YUIState> =
         flow {
             emit(YUIState.Loading)
@@ -39,7 +41,9 @@ class CardRepositoryImpl(private val service: ApiService) : CardRepository {
                 format = format,
                 linkMarker = linkMarker,
                 staple = staple,
-                language = language
+                language = language,
+                num = num,
+                offset = offset
             )
 
             if (response.isSuccessful) {

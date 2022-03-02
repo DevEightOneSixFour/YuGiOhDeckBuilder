@@ -19,7 +19,9 @@ class CardUseCase(private val repository: CardRepository) {
         format: String? = null,
         linkMarker: String? = null,
         staple:String? = null,
-        language: String? = null
+        language: String? = null,
+        num: Int? = null,
+        offset: Int? = null
     ): Flow<YUIState> = repository.getCards(
         name = name,
         archetype = archetype,
@@ -34,7 +36,9 @@ class CardUseCase(private val repository: CardRepository) {
         format = format,
         linkMarker = linkMarker,
         staple = staple,
-        language = language
+        language = language,
+        num = num,
+        offset = offset
     )
 
     suspend fun getCardByName(fName: String?) = repository.getCardByName(fName = fName)

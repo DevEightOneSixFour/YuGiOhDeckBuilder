@@ -19,7 +19,9 @@ interface CardRepository {
         format: String?,
         linkMarker: String?,
         staple:String?,
-        language: String?
+        language: String?,
+        num: Int?,
+        offset: Int?
     ): Flow<YUIState>
 
     suspend fun getCardByName(fName: String?): Flow<YUIState>

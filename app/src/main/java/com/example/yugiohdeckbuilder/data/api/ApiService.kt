@@ -2,6 +2,7 @@ package com.example.yugiohdeckbuilder.data.api
 
 import com.example.yugiohdeckbuilder.data.model.response.Card
 import com.example.yugiohdeckbuilder.data.model.response.YuGiOhResponse
+import com.example.yugiohdeckbuilder.utils.PAGE_SIZE
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -24,8 +25,8 @@ interface ApiService {
         @Query("linkmarker") linkMarker: String?,
         @Query("staple") staple: String?,
         @Query("language") language: String?, //*
-        @Query("num") num: Int = 21,
-        @Query("offset") offset: Int = 0
+        @Query("num") num: Int?,
+        @Query("offset") offset: Int?
     ): Response<YuGiOhResponse>
 
     @GET("cardinfo.php")

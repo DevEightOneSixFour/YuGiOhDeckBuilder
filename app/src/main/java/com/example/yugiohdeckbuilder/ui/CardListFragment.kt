@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -11,9 +12,11 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.yugiohdeckbuilder.data.model.YUIState
 import com.example.yugiohdeckbuilder.data.model.response.Card
+import com.example.yugiohdeckbuilder.databinding.CardListPagesBinding
 import com.example.yugiohdeckbuilder.databinding.FragmentCardListBinding
 import com.example.yugiohdeckbuilder.presentation.CardViewModel
 import com.example.yugiohdeckbuilder.ui.adapter.CardAdapter
+import com.example.yugiohdeckbuilder.utils.PAGE_SIZE
 
 class CardListFragment : Fragment() {
 
@@ -32,10 +35,26 @@ class CardListFragment : Fragment() {
         fetchCardData()
         return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // TODO disable button when at the start of the list
+        binding.ivNextPage.setOnClickListener {
+            viewModel.updateOffset(PAGE_SIZE)
+            Toast.makeText(context, "Clicked Next", Toast.LENGTH_SHORT).show()
+        }
+
+        // TODO disable button when at the end of the list
+        binding.ivPreviousPage.setOnClickListener {
+            viewModel.updateOffset(-PAGE_SIZE)
+            Toast.makeText(context, "Clicked Back", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun configureObservers() {
-        viewModel.cardListLiveData.observe(viewLifecycleOwner, {
+        viewModel.cardListLiveData.observe(viewLifecycleOwner) {
             updateYUI(it)
-        })
+        }
     }
 
     private fun updateYUI(state: YUIState) {
@@ -65,6 +84,7 @@ class CardListFragment : Fragment() {
                     rvCardList.visibility = View.VISIBLE
                 }
             }
+            else -> {}
         }
     }
 
@@ -78,7 +98,7 @@ class CardListFragment : Fragment() {
     }
 
     private fun fetchCardData() {
-        viewModel.fetchCards(
+        viewModel.updatePageState(
             name = args.name,
             archetype = args.archetype,
             level = args.level,

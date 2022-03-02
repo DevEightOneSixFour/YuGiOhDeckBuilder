@@ -18,6 +18,7 @@ import com.example.yugiohdeckbuilder.databinding.CustomFilterAlertBinding
 import com.example.yugiohdeckbuilder.databinding.FragmentFilterBinding
 import com.example.yugiohdeckbuilder.presentation.CardViewModel
 import com.example.yugiohdeckbuilder.utils.*
+import kotlin.system.measureTimeMillis
 
 class FilterFragment : Fragment() {
 
@@ -129,6 +130,8 @@ class FilterFragment : Fragment() {
                     }
                 }
             }
+            CardType.NO_TYPE -> {}
+            null -> {}
         }
         if (showAlert) {
             buildFilterAlertView(listOfFilters)
@@ -178,7 +181,7 @@ class FilterFragment : Fragment() {
     }
 
     private fun configureObservers() {
-        viewModel.currentType.observe(viewLifecycleOwner, { type ->
+        viewModel.currentType.observe(viewLifecycleOwner) { type ->
             when (type) {
                 CardType.NAME -> {
                     nameUIUpdate()
@@ -201,10 +204,11 @@ class FilterFragment : Fragment() {
                     clearFilters()
                     binding.btnSearch.text = resources.getString(R.string.fetch_all_cards)
                 }
+                null -> {}
             }
-        })
+        }
 
-        viewModel.cardByNameLiveData.observe(viewLifecycleOwner, { uiState ->
+        viewModel.cardByNameLiveData.observe(viewLifecycleOwner) { uiState ->
             when (uiState) {
                 is YUIState.SuccessList -> {
                     binding.run {
@@ -225,7 +229,7 @@ class FilterFragment : Fragment() {
                     }
                 }
             }
-        })
+        }
     }
 
     // TODO Name filter visibility
@@ -264,6 +268,7 @@ class FilterFragment : Fragment() {
                 visibility = View.GONE
             }
         }
+        viewModel.resetOffset()
     }
 
     private fun nameUIUpdate() {

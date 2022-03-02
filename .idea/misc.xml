@@ -3,8 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../Library/Android/sdk/platforms/android-32/data/res/layout/simple_list_item_1.xml" value="0.24375" />
+        <entry key="app/src/main/res/drawable/ic_baseline_chevron_left_24.xml" value="0.1185" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/card_details_list_view.xml" value="0.24166666666666667" />
+        <entry key="app/src/main/res/layout/card_list_pages.xml" value="0.18568840579710144" />
         <entry key="app/src/main/res/layout/card_row_item.xml" value="0.335" />
         <entry key="app/src/main/res/layout/cardset_bottom_sheet.xml" value="0.24166666666666667" />
         <entry key="app/src/main/res/layout/cardset_row_item.xml" value="0.24166666666666667" />

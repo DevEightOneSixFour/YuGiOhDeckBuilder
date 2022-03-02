@@ -1,8 +1,7 @@
 package com.example.yugiohdeckbuilder.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.yugiohdeckbuilder.R
+import androidx.appcompat.app.AppCompatActivity
 import com.example.yugiohdeckbuilder.databinding.ActivityMainBinding
 import com.example.yugiohdeckbuilder.di.DI
 import com.example.yugiohdeckbuilder.presentation.CardViewModel
