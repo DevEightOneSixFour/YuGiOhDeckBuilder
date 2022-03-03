@@ -9,3 +9,5 @@ const val FRENCH = "fr"
 const val GERMAN = "de"
 const val ITALIAN = "it"
 const val PORTUGUESE = "pt"
+
+const val PAGE_SIZE = 30

@@ -1,0 +1,7 @@
+
+TODO Firebase: User Login and data storage (encrypt the data)
+TODO SharedPref: No call to firebase if the user leaves app and comes back
+todo DetailsFragment: Flip animation once the card has loaded or animate it moving into position
+todo DetailsFragment:
+todo Loading Screens: Found some cool gifs and I want to use them
+todo Deeplink: Have a notification that the user can click and load a random card

@@ -11,17 +11,14 @@ import android.widget.ListView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.yugiohdeckbuilder.R
-import com.example.yugiohdeckbuilder.data.model.response.CardSet
 import com.example.yugiohdeckbuilder.databinding.CardDetailsListViewBinding
 import com.example.yugiohdeckbuilder.databinding.CardsetBottomSheetBinding
 import com.example.yugiohdeckbuilder.databinding.FragmentDetailsBinding
 import com.example.yugiohdeckbuilder.ui.adapter.CardSetAdapter
-import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class CardDetailsFragment : Fragment() {
 
@@ -30,8 +27,7 @@ class CardDetailsFragment : Fragment() {
     private lateinit var dialog: Dialog
     private val args: CardDetailsFragmentArgs by navArgs()
     private lateinit var priceArray: Array<String>
-    private lateinit var cardSetArray: Array<String>
-    private lateinit var miscInfo: Array<String>
+    private lateinit var miscInfo: Array<String> // todo implement?
     private lateinit var banArray: Array<String>
 
 

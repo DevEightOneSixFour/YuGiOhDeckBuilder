@@ -153,6 +153,7 @@
         android:background="@color/white"
         android:entries="@array/monster_races"
         android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintEnd_toStartOf="@id/spn_levels"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/spn_main_types" />
@@ -164,6 +165,7 @@
         android:background="@color/white"
         android:entries="@array/levels"
         android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintEnd_toStartOf="@id/spn_attributes"
         app:layout_constraintStart_toEndOf="@id/spn_monster_races"
         app:layout_constraintTop_toBottomOf="@id/spn_main_types" />
@@ -175,6 +177,7 @@
         android:background="@color/white"
         android:entries="@array/attributes"
         android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/spn_levels"
         app:layout_constraintTop_toBottomOf="@id/spn_main_types" />
@@ -223,10 +226,3 @@
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!--
-    TODO 8 spinners
-        Possible radio buttons for triggers the filters
-        Select 'Monster' should only show monster card filters
-        Select 'Spell' || 'Trap' should do the same respectively
-    -->
