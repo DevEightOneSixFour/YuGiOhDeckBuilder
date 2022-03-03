@@ -30,9 +30,7 @@ class CardViewModel(private val useCase: CardUseCase): ViewModel() {
     val currentType: LiveData<CardType>
     get() = _currentType
 
-    lateinit var currentPageState: PageState
-
-    private var pageOffset = 0
+    private val currentPageState = PageState()
 
     fun updatePageState(
         name: String? = null,
@@ -50,30 +48,31 @@ class CardViewModel(private val useCase: CardUseCase): ViewModel() {
         staple: String? = null,
         language: String? = null,
         num: Int = PAGE_SIZE,
-        offset: Int = pageOffset
+        offset: Int? = currentPageState.offset ?: 0
     ){
-        currentPageState = PageState(
-            name = name,
-            archetype = archetype,
-            level = level,
-            attribute = attribute,
-            sort = sort,
-            banList = banList,
-            cardSet = cardSet,
-            fName = fName,
-            type = type,
-            race = race,
-            format = format,
-            linkMarker = linkMarker,
-            staple = staple,
-            language = language,
-            num = num,
-            offset = offset
-        )
+        currentPageState.apply {
+            this.name = name
+            this.archetype = archetype
+            this.level = level
+            this.attribute = attribute
+            this.sort = sort
+            this.banList = banList
+            this.cardSet = cardSet
+            this.fName = fName
+            this.type = type
+            this.race = race
+            this.format = format
+            this.linkMarker = linkMarker
+            this.staple = staple
+            this.language = language
+            this.num = num
+            this.offset = offset
+        }
+
         fetchCards(currentPageState)
     }
 
-    fun fetchCards(pageState: PageState) {
+    private fun fetchCards(pageState: PageState) {
         viewModelScope.launch {
             useCase.getCards(
                 name = pageState.name,
@@ -119,11 +118,30 @@ class CardViewModel(private val useCase: CardUseCase): ViewModel() {
     }
 
     fun updateOffset(amount: Int) {
-        currentPageState.offset += amount
+        currentPageState.offset = currentPageState.offset?.plus(amount)
         fetchCards(currentPageState)
     }
 
-    fun resetOffset() {
-        pageOffset = 0
+    fun clearPageState() {
+        currentPageState.run {
+            name = null
+            archetype = null
+            level = null
+            attribute = null
+            sort = null
+            banList = null
+            cardSet = null
+            fName = null
+            type = null
+            race = null
+            format = null
+            linkMarker = null
+            staple = null
+            language = null
+            offset = null
+        }
     }
+
+    fun getPageState() = currentPageState
+
 }

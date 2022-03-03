@@ -20,8 +20,8 @@ import com.example.yugiohdeckbuilder.utils.PAGE_SIZE
 
 class CardListFragment : Fragment() {
 
-    private lateinit var binding : FragmentCardListBinding
-    private lateinit var viewModel : CardViewModel
+    private lateinit var binding: FragmentCardListBinding
+    private lateinit var viewModel: CardViewModel
     private val args: CardListFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -41,13 +41,11 @@ class CardListFragment : Fragment() {
         // TODO disable button when at the start of the list
         binding.ivNextPage.setOnClickListener {
             viewModel.updateOffset(PAGE_SIZE)
-            Toast.makeText(context, "Clicked Next", Toast.LENGTH_SHORT).show()
         }
 
         // TODO disable button when at the end of the list
         binding.ivPreviousPage.setOnClickListener {
             viewModel.updateOffset(-PAGE_SIZE)
-            Toast.makeText(context, "Clicked Back", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -64,6 +62,8 @@ class CardListFragment : Fragment() {
                     progressBar.visibility = View.VISIBLE
                     tvErrorText.visibility = View.GONE
                     rvCardList.visibility = View.GONE
+                    ivNextPage.isEnabled = false
+                    ivPreviousPage.isEnabled = false
                 }
             }
             is YUIState.Error -> {
@@ -82,9 +82,39 @@ class CardListFragment : Fragment() {
                         CardAdapter(state.response.data.orEmpty(), ::openCardDetail)
                     rvCardList.layoutManager = GridLayoutManager(context, 3)
                     rvCardList.visibility = View.VISIBLE
+                    checkCurrentPage(state.response.data!!)
                 }
             }
             else -> {}
+        }
+    }
+
+    private fun checkCurrentPage(cardList: List<Card>) {
+        when  {
+            viewModel.getPageState().offset == 0 && PAGE_SIZE != cardList.size -> {
+                binding.apply {
+                    ivPreviousPage.isEnabled = false
+                    ivNextPage.isEnabled = false
+                }
+            }
+            viewModel.getPageState().offset == 0 -> {
+                binding.apply {
+                    ivPreviousPage.isEnabled = false
+                    ivNextPage.isEnabled = true
+                }
+            }
+            PAGE_SIZE != cardList.size -> {
+                binding.apply {
+                    ivPreviousPage.isEnabled = true
+                    ivNextPage.isEnabled = false
+                }
+            }
+            viewModel.getPageState().offset!! > 0 -> {
+                binding.apply {
+                    ivPreviousPage.isEnabled = true
+                    ivNextPage.isEnabled = true
+                }
+            }
         }
     }
 

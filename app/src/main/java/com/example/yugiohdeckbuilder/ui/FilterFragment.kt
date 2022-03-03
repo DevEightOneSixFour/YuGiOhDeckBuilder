@@ -60,6 +60,7 @@ class FilterFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        viewModel.clearPageState()
         clearFilters()
     }
 
@@ -268,7 +269,6 @@ class FilterFragment : Fragment() {
                 visibility = View.GONE
             }
         }
-        viewModel.resetOffset()
     }
 
     private fun nameUIUpdate() {
