@@ -64,17 +64,6 @@ class FilterFragment : Fragment() {
         clearFilters()
     }
 
-    /*
-     TODO should display selected filters
-        for the respective card type
-        in an alert dialog, before
-        prompting the user to search
-        with the selected filters
-
-                You Selected
-        Monster, Effect Monster, 4, Dark
-         [go back]  [search with these filters]
-     */
     private fun displaySelectedFilters() {
         var showAlert = true
         val listOfFilters = mutableListOf<String>()
@@ -233,7 +222,6 @@ class FilterFragment : Fragment() {
         }
     }
 
-    // TODO Name filter visibility
     private fun clearFilters() {
         binding.run {
             rbNoType.isChecked = true

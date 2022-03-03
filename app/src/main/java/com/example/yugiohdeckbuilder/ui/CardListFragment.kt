@@ -38,12 +38,10 @@ class CardListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // TODO disable button when at the start of the list
         binding.ivNextPage.setOnClickListener {
             viewModel.updateOffset(PAGE_SIZE)
         }
 
-        // TODO disable button when at the end of the list
         binding.ivPreviousPage.setOnClickListener {
             viewModel.updateOffset(-PAGE_SIZE)
         }

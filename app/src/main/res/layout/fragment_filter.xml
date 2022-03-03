@@ -226,10 +226,3 @@
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!--
-    TODO 8 spinners
-        Possible radio buttons for triggers the filters
-        Select 'Monster' should only show monster card filters
-        Select 'Spell' || 'Trap' should do the same respectively
-    -->
