@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "697035072367",
+    "project_id": "yugiohdeckbuidler",
+    "storage_bucket": "yugiohdeckbuidler.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:697035072367:android:b0036c00e1b75819657e9a",
+        "android_client_info": {
+          "package_name": "com.sdbfof.yugiohdeckbuilder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "697035072367-k35blejq2iab8arr16m8dmjtbgurkltl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGTKjBw1W8QP08QyBzDF4DRIm5jz80lkw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "697035072367-k35blejq2iab8arr16m8dmjtbgurkltl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

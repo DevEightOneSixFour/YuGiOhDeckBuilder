@@ -4,13 +4,14 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.gms.google-services'
 }
 
 android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.yugiohdeckbuilder"
+        applicationId "com.sdbfof.yugiohdeckbuilder"
         minSdk 26
         targetSdk 32
         versionCode 1
@@ -74,6 +75,11 @@ dependencies {
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2"
+
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:29.1.0')
+    implementation "com.google.firebase:firebase-auth:21.0.2"
+    implementation 'com.google.firebase:firebase-database-ktx:20.0.4'
 
     // Leak Canary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.8.1'
