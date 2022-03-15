@@ -3,11 +3,13 @@ package com.sdbfof.yugiohdeckbuilder.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import com.google.firebase.database.FirebaseDatabase
 import com.sdbfof.yugiohdeckbuilder.data.api.ApiService
 import com.sdbfof.yugiohdeckbuilder.domain.CardRepositoryImpl
 import com.sdbfof.yugiohdeckbuilder.domain.CardUseCase
 import com.sdbfof.yugiohdeckbuilder.presentation.CardViewModel
 import com.sdbfof.yugiohdeckbuilder.utils.BASE_URL
+import com.sdbfof.yugiohdeckbuilder.utils.FB_DATABASE_TITLE
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -33,4 +35,5 @@ object DI {
         })
 
     private fun provideUseCase() = CardUseCase(getRepositoryImpl())
+    fun provideDatabase() = FirebaseDatabase.getInstance().getReference(FB_DATABASE_TITLE)
 }

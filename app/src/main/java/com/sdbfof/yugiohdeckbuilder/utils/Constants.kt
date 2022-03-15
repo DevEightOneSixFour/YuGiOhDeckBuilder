@@ -16,4 +16,7 @@ const val TRAP_CARD = "Trap Card"
 const val MAIN_DECK = "Main Deck"
 const val EXTRA_DECK = "Extra Deck"
 
+// Database
+const val FB_DATABASE_TITLE = "Yusers"
+
 const val PAGE_SIZE = 30

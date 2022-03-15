@@ -8,3 +8,8 @@ enum class CardType {
     TRAP,
     NO_TYPE
 }
+
+enum class DeckType {
+    MAIN,
+    EXTRA
+}
