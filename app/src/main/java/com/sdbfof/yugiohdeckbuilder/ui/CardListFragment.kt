@@ -59,8 +59,6 @@ class CardListFragment : Fragment() {
                     progressBar.visibility = View.VISIBLE
                     tvErrorText.visibility = View.GONE
                     rvCardList.visibility = View.GONE
-                    ivNextPage.isEnabled = false
-                    ivPreviousPage.isEnabled = false
                 }
             }
             is YUIState.Error -> {
@@ -90,26 +88,28 @@ class CardListFragment : Fragment() {
         when {
             viewModel.getPageState().offset == 0 && PAGE_SIZE != cardList.size -> {
                 binding.apply {
-                    ivPreviousPage.isEnabled = false
-                    ivNextPage.isEnabled = false
+                    clPagingLayout.visibility = View.GONE
                 }
             }
             viewModel.getPageState().offset == 0 -> {
                 binding.apply {
-                    ivPreviousPage.isEnabled = false
-                    ivNextPage.isEnabled = true
+                    clPagingLayout.visibility = View.VISIBLE
+                    ivPreviousPage.visibility = View.GONE
+                    ivNextPage.visibility = View.VISIBLE
                 }
             }
             PAGE_SIZE != cardList.size -> {
                 binding.apply {
-                    ivPreviousPage.isEnabled = true
-                    ivNextPage.isEnabled = false
+                    clPagingLayout.visibility = View.VISIBLE
+                    ivPreviousPage.visibility = View.VISIBLE
+                    ivNextPage.visibility = View.GONE
                 }
             }
             viewModel.getPageState().offset!! > 0 -> {
                 binding.apply {
-                    ivPreviousPage.isEnabled = true
-                    ivNextPage.isEnabled = true
+                    clPagingLayout.visibility = View.VISIBLE
+                    ivPreviousPage.visibility = View.VISIBLE
+                    ivNextPage.visibility = View.VISIBLE
                 }
             }
         }

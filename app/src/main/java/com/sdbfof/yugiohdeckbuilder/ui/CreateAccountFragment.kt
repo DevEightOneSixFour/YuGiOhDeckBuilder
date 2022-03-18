@@ -47,12 +47,12 @@ class CreateAccountFragment: FBAccountFragment() {
     }
 
     private fun submitProfile() {
-        val yuser = Yuser(
-            id =  , // todo 3/12 use firebase auto-incrementation
-            username = binding.tietInputUsername.text.toString(),
-            email = binding.tietInputEmail.text.toString(),
-            password = binding.tietInputPassword.text.toString()
-        )
+//        val yuser = Yuser(
+//            id =  , // todo 3/12 use firebase auto-incrementation
+//            username = binding.tietInputUsername.text.toString(),
+//            email = binding.tietInputEmail.text.toString(),
+//            password = binding.tietInputPassword.text.toString()
+//        )
         Toast.makeText(context,"Account Submitted", Toast.LENGTH_SHORT).show()
     }
 }
