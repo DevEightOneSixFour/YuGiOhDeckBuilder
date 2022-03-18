@@ -13,7 +13,7 @@
         android:background="@color/white"
         android:text="@string/filter_by"
         android:textSize="32sp"
-        android:layout_margin="4dp"
+        android:layout_margin="@dimen/standard_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -33,30 +33,35 @@
             android:id="@+id/rb_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/standard_margin"
             android:text="@string/name" />
 
         <RadioButton
             android:id="@+id/rb_monster"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/standard_margin"
             android:text="@string/monster" />
 
         <RadioButton
             android:id="@+id/rb_spell"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/standard_margin"
             android:text="@string/spell" />
 
         <RadioButton
             android:id="@+id/rb_trap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/standard_margin"
             android:text="@string/trap" />
 
         <RadioButton
             android:id="@+id/rb_no_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/standard_margin"
             android:text="@string/no_type" />
     </RadioGroup>
 

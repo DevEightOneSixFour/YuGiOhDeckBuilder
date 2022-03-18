@@ -2,11 +2,20 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/nav_filter">
+    app:startDestination="@id/nav_login">
+
+    <fragment
+        android:id="@+id/nav_login"
+        android:name="com.sdbfof.yugiohdeckbuilder.ui.LoginFragment">
+
+        <action
+            android:id="@+id/action_nav_login_to_nav_filter"
+            app:destination="@id/nav_filter"/>
+    </fragment>
 
     <fragment
         android:id="@+id/nav_filter"
-        android:name="com.example.yugiohdeckbuilder.ui.FilterFragment">
+        android:name="com.sdbfof.yugiohdeckbuilder.ui.FilterFragment">
 
         <action
             android:id="@+id/action_nav_filter_to_nav_card_list"
@@ -19,7 +28,7 @@
 
     <fragment
         android:id="@+id/nav_card_list"
-        android:name="com.example.yugiohdeckbuilder.ui.CardListFragment">
+        android:name="com.sdbfof.yugiohdeckbuilder.ui.CardListFragment">
 
         <action
             android:id="@+id/action_nav_card_list_to_nav_card_detail"
@@ -100,11 +109,11 @@
 
     <fragment
         android:id="@+id/nav_card_detail"
-        android:name="com.example.yugiohdeckbuilder.ui.CardDetailsFragment">
+        android:name="com.sdbfof.yugiohdeckbuilder.ui.CardDetailsFragment">
 
         <argument
             android:name="card"
-            app:argType="com.example.yugiohdeckbuilder.data.model.response.Card" />
+            app:argType="com.sdbfof.yugiohdeckbuilder.data.model.response.Card" />
 
     </fragment>
 

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/tv_title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="35sp"
+        android:text="@string/login_create_account"
+        android:textColor="@color/black"
+        android:shadowColor="@color/gray"
+        android:shadowDx="-5"
+        android:shadowDy="1"
+        android:shadowRadius="1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/gl_create_start"
+        app:layout_constraintEnd_toEndOf="@id/gl_create_end"
+        app:layout_constraintBottom_toTopOf="@id/til_create_username"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_create_username"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_margin"
+        app:layout_constraintTop_toTopOf="parent"
+
+        app:layout_constraintStart_toStartOf="@id/gl_create_start"
+        app:layout_constraintEnd_toEndOf="@id/gl_create_end"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiet_input_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/login_enter_username"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_create_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_margin"
+        app:layout_constraintTop_toBottomOf="@id/til_create_username"
+        app:layout_constraintStart_toStartOf="@id/gl_create_start"
+        app:layout_constraintEnd_toEndOf="@id/gl_create_end"
+        app:layout_constraintBottom_toTopOf="@id/til_password">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiet_input_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/login_email"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_margin"
+        app:layout_constraintTop_toBottomOf="@id/til_create_username"
+        app:layout_constraintStart_toStartOf="@id/gl_create_start"
+        app:layout_constraintEnd_toEndOf="@id/gl_create_end"
+        app:layout_constraintBottom_toTopOf="@id/til_password_repeat">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiet_input_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/login_enter_password"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_password_repeat"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_margin"
+        app:layout_constraintTop_toBottomOf="@id/til_password"
+        app:layout_constraintStart_toStartOf="@id/gl_create_start"
+        app:layout_constraintEnd_toEndOf="@id/gl_create_end"
+>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiet_input_password_repeat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/login_repeat_password"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_create_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_create_account"
+        android:enabled="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/gl_create_start"
+        app:layout_constraintEnd_toEndOf="@id/gl_create_end"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_create_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.15"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_create_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
