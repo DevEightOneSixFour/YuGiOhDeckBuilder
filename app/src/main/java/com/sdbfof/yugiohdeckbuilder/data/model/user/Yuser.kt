@@ -1,7 +1,7 @@
 package com.sdbfof.yugiohdeckbuilder.data.model.user
 
 data class Yuser(
-    val id: Int = 0,
+    val id: String,
     val username: String,
     val email: String,
     val password: String,

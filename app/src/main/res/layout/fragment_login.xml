@@ -91,7 +91,7 @@
         android:id="@+id/tv_account_creation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="New? Create an account!"
+        tools:text="@string/login_new_account"
         app:layout_constraintTop_toBottomOf="@id/cb_login_save"
         app:layout_constraintStart_toStartOf="@id/cb_login_save"
         app:layout_constraintEnd_toEndOf="@id/cb_login_save"/>

@@ -39,7 +39,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_create_email"
+        android:id="@+id/til_email_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/standard_margin"
@@ -51,6 +51,7 @@
             android:id="@+id/tiet_input_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
             android:hint="@string/login_email"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -67,6 +68,7 @@
             android:id="@+id/tiet_input_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:hint="@string/login_enter_password"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,6 +85,7 @@
             android:id="@+id/tiet_input_password_repeat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:hint="@string/login_repeat_password"/>
     </com.google.android.material.textfield.TextInputLayout>
 

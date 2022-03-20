@@ -11,6 +11,17 @@
         <action
             android:id="@+id/action_nav_login_to_nav_filter"
             app:destination="@id/nav_filter"/>
+        <action
+            android:id="@+id/action_nav_login_to_nav_create_account"
+            app:destination="@id/nav_create_account"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_create_account"
+        android:name="com.sdbfof.yugiohdeckbuilder.ui.CreateAccountFragment">
+        <action
+            android:id="@+id/action_nav_create_account_to_nav_login"
+            app:destination="@id/nav_login"/>
     </fragment>
 
     <fragment
