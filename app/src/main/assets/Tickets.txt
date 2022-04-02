@@ -1,0 +1,25 @@
+SDB-001
+- Look into layout leaks
+- Refer to LeakCanary screenshots
+
+SDB-002
+- UX log out features
+    - User cannot log out
+    - Pressing back on filter screen shows login Toast
+
+SDB-003
+- CardDetailsFragment has loading image, should just transition
+    from clicked card to details card page
+
+SDB-004
+- User Profile features
+    - Once logged in, user can
+        View profile
+        Update password
+        Add a profile image
+        Create a deck
+        Name, add to and delete from existing decks
+
+SDB-005
+- On login page user can
+    Reset forgotten password
