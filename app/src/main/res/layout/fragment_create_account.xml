@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="35sp"
-        android:text="@string/login_create_account"
+        android:text="@string/account_create_title"
         android:textColor="@color/black"
         android:shadowColor="@color/gray"
         android:shadowDx="-5"
@@ -35,11 +35,11 @@
             android:id="@+id/tiet_input_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/login_enter_username"/>
+            android:hint="@string/login_enter_email"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_create_email"
+        android:id="@+id/til_email_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/standard_margin"
@@ -51,6 +51,7 @@
             android:id="@+id/tiet_input_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
             android:hint="@string/login_email"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -67,6 +68,7 @@
             android:id="@+id/tiet_input_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:hint="@string/login_enter_password"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,6 +85,7 @@
             android:id="@+id/tiet_input_password_repeat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:hint="@string/login_repeat_password"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -90,9 +93,9 @@
         android:id="@+id/btn_create_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/login_create_account"
+        android:text="@string/account_submit_btn"
         android:enabled="false"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/til_password_repeat"
         app:layout_constraintStart_toStartOf="@id/gl_create_start"
         app:layout_constraintEnd_toEndOf="@id/gl_create_end"/>
 

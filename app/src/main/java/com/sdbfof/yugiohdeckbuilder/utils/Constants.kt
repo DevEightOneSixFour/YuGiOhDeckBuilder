@@ -16,7 +16,16 @@ const val TRAP_CARD = "Trap Card"
 const val MAIN_DECK = "Main Deck"
 const val EXTRA_DECK = "Extra Deck"
 
+// Retailers
+const val CARD_MARKET = "Card Market"
+const val COOL_STUFF = "Cool Stuff"
+const val TCG_PLAYER = "TCG Player"
+const val EBAY = "eBay"
+const val AMAZON = "Amazon"
+
 // Database
 const val FB_DATABASE_TITLE = "Yusers"
 
 const val PAGE_SIZE = 30
+
+const val TAG = "***** "

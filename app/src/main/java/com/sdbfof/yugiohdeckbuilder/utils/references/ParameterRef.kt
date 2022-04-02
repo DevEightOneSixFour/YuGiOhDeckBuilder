@@ -1,4 +1,4 @@
-package com.sdbfof.yugiohdeckbuilder.references
+package com.sdbfof.yugiohdeckbuilder.utils.references
 
 /*
 

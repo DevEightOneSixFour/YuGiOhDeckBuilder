@@ -1,4 +1,4 @@
-package com.sdbfof.yugiohdeckbuilder.ui
+package com.sdbfof.yugiohdeckbuilder.ui.cards
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
-import com.sdbfof.yugiohdeckbuilder.data.model.YUIState
+import com.sdbfof.yugiohdeckbuilder.data.model.states.YUIState
 import com.sdbfof.yugiohdeckbuilder.data.model.response.Card
 import com.sdbfof.yugiohdeckbuilder.databinding.FragmentCardListBinding
 import com.sdbfof.yugiohdeckbuilder.presentation.CardViewModel

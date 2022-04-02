@@ -1,4 +1,4 @@
-package com.sdbfof.yugiohdeckbuilder.ui
+package com.sdbfof.yugiohdeckbuilder.ui.cards
 
 import android.os.Bundle
 import android.view.*
@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.sdbfof.yugiohdeckbuilder.R
-import com.sdbfof.yugiohdeckbuilder.data.model.YUIState
+import com.sdbfof.yugiohdeckbuilder.data.model.states.YUIState
 import com.sdbfof.yugiohdeckbuilder.databinding.CustomFilterAlertBinding
 import com.sdbfof.yugiohdeckbuilder.databinding.FragmentFilterBinding
 import com.sdbfof.yugiohdeckbuilder.presentation.CardViewModel
@@ -214,6 +214,7 @@ class FilterFragment : Fragment() {
                         actvFname.error = resources.getString(R.string.cannot_find)
                     }
                 }
+                else -> {}
             }
         }
     }

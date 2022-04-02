@@ -6,16 +6,27 @@
 
     <fragment
         android:id="@+id/nav_login"
-        android:name="com.sdbfof.yugiohdeckbuilder.ui.LoginFragment">
+        android:name="com.sdbfof.yugiohdeckbuilder.ui.account.LoginFragment">
 
         <action
             android:id="@+id/action_nav_login_to_nav_filter"
             app:destination="@id/nav_filter"/>
+        <action
+            android:id="@+id/action_nav_login_to_nav_create_account"
+            app:destination="@id/nav_create_account"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_create_account"
+        android:name="com.sdbfof.yugiohdeckbuilder.ui.account.CreateAccountFragment">
+        <action
+            android:id="@+id/action_nav_create_account_to_nav_login"
+            app:destination="@id/nav_login"/>
     </fragment>
 
     <fragment
         android:id="@+id/nav_filter"
-        android:name="com.sdbfof.yugiohdeckbuilder.ui.FilterFragment">
+        android:name="com.sdbfof.yugiohdeckbuilder.ui.cards.FilterFragment">
 
         <action
             android:id="@+id/action_nav_filter_to_nav_card_list"
@@ -28,7 +39,7 @@
 
     <fragment
         android:id="@+id/nav_card_list"
-        android:name="com.sdbfof.yugiohdeckbuilder.ui.CardListFragment">
+        android:name="com.sdbfof.yugiohdeckbuilder.ui.cards.CardListFragment">
 
         <action
             android:id="@+id/action_nav_card_list_to_nav_card_detail"
@@ -109,7 +120,7 @@
 
     <fragment
         android:id="@+id/nav_card_detail"
-        android:name="com.sdbfof.yugiohdeckbuilder.ui.CardDetailsFragment">
+        android:name="com.sdbfof.yugiohdeckbuilder.ui.cards.CardDetailsFragment">
 
         <argument
             android:name="card"
