@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sdbfof.yugiohdeckbuilder.data.model.PageState
-import com.sdbfof.yugiohdeckbuilder.data.model.YUIState
+import com.sdbfof.yugiohdeckbuilder.data.model.states.PageState
+import com.sdbfof.yugiohdeckbuilder.data.model.states.YUIState
 import com.sdbfof.yugiohdeckbuilder.domain.CardUseCase
 import com.sdbfof.yugiohdeckbuilder.utils.CardType
 import com.sdbfof.yugiohdeckbuilder.utils.PAGE_SIZE

@@ -1,4 +1,4 @@
-package com.sdbfof.yugiohdeckbuilder.data.model
+package com.sdbfof.yugiohdeckbuilder.data.model.states
 
 import com.sdbfof.yugiohdeckbuilder.data.model.response.Card
 import com.sdbfof.yugiohdeckbuilder.data.model.response.YuGiOhResponse

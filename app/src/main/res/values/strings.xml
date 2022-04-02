@@ -48,7 +48,7 @@
 
     <!--  Login  -->
     <string name="login_title_text">YuGiOh Deck Builder</string>
-    <string name="login_enter_username">Username</string>
+    <string name="login_enter_email">Email</string>
     <string name="login_enter_password">Password</string>
     <string name="login_begin_building">Begin Building</string>
     <string name="login_save_checkbox">Save login?</string>
@@ -57,12 +57,16 @@
     <!--  Create Account  -->
     <string name="login_email">Email</string>
     <string name="login_repeat_password">Repeat Password</string>
-    <string name="login_create_account">Create Account</string>
-    <string name="login_account_submit">Submit</string>
-    <string name="login_valid_password">Passwords need to match</string>
-    <string name="login_valid_email">Invalid email</string>
-    <string name="login_existing_email">Email is already used</string>
-    <string name="login_existing_username">Username is already used</string>
+    <string name="account_create_title">Create Account</string>
+    <string name="account_submit_btn">Submit</string>
+    <string name="account_valid_password">Passwords need to match</string>
+    <string name="account_valid_email">Invalid email</string>
+    <string name="account_existing_email">Email is already used, please try another</string>
+    <string name="account_existing_username">Username is already used</string>
+    <string name="account_successful_submission">%s, your account is created</string>
+    <string name="account_not_found">Account not found</string>
+    <string name="account_signed_in">Welcome, let\'s get building!</string>
+    <string name="account_username_credentials">Must not have \'.\', \'#\', \'$\', \'[\', or \']\' </string>
 
     <!--  Others to Categorize  -->
     <string name="filter_by">Filter By</string>

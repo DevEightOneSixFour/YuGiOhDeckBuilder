@@ -1,6 +1,6 @@
 package com.sdbfof.yugiohdeckbuilder.domain
 
-import com.sdbfof.yugiohdeckbuilder.data.model.YUIState
+import com.sdbfof.yugiohdeckbuilder.data.model.states.YUIState
 import kotlinx.coroutines.flow.Flow
 
 interface CardRepository {

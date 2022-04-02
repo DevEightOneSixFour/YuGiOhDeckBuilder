@@ -1,4 +1,4 @@
-package com.sdbfof.yugiohdeckbuilder.ui
+package com.sdbfof.yugiohdeckbuilder.ui.cards
 
 import android.app.Dialog
 import android.os.Bundle
