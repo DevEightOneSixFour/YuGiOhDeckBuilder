@@ -4,22 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.sdbfof.yugiohdeckbuilder.data.model.states.YUIState
 import com.sdbfof.yugiohdeckbuilder.data.model.response.Card
 import com.sdbfof.yugiohdeckbuilder.databinding.FragmentCardListBinding
-import com.sdbfof.yugiohdeckbuilder.presentation.CardViewModel
 import com.sdbfof.yugiohdeckbuilder.ui.adapter.CardAdapter
 import com.sdbfof.yugiohdeckbuilder.utils.PAGE_SIZE
 
-class CardListFragment : Fragment() {
+class CardListFragment : BaseCardFragment() {
 
-    private lateinit var binding: FragmentCardListBinding
-    private lateinit var viewModel: CardViewModel
+    private var _binding: FragmentCardListBinding? = null
+    private val binding: FragmentCardListBinding
+        get() = _binding!!
+    private val viewModel by lazy {
+        println(provideCardViewModel().toString())
+        provideCardViewModel()
+    }
     private val args: CardListFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -27,8 +29,7 @@ class CardListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCardListBinding.inflate(layoutInflater)
-        viewModel = ViewModelProvider(requireActivity())[CardViewModel::class.java]
+        _binding = FragmentCardListBinding.inflate(layoutInflater)
         configureObservers()
         fetchCardData()
         return binding.root
@@ -141,5 +142,10 @@ class CardListFragment : Fragment() {
             staple = args.staple,
             language = args.language
         )
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

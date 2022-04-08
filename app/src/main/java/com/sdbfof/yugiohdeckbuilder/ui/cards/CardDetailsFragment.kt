@@ -10,7 +10,6 @@ import android.widget.Button
 import android.widget.ListView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -20,9 +19,11 @@ import com.sdbfof.yugiohdeckbuilder.databinding.CardsetBottomSheetBinding
 import com.sdbfof.yugiohdeckbuilder.databinding.FragmentDetailsBinding
 import com.sdbfof.yugiohdeckbuilder.ui.adapter.CardSetAdapter
 
-class CardDetailsFragment : Fragment() {
+class CardDetailsFragment : BaseCardFragment() {
 
-    private lateinit var binding: FragmentDetailsBinding
+    private var _binding: FragmentDetailsBinding? = null
+    private val binding: FragmentDetailsBinding
+        get() = _binding!!
     private lateinit var bottomSheetBinding: CardsetBottomSheetBinding
     private lateinit var dialog: Dialog
     private val args: CardDetailsFragmentArgs by navArgs()
@@ -30,13 +31,17 @@ class CardDetailsFragment : Fragment() {
     private lateinit var miscInfo: Array<String> // todo implement?
     private lateinit var banArray: Array<String>
 
+    private val viewModel by lazy {
+        println(provideCardViewModel().toString())
+        provideCardViewModel() }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentDetailsBinding.inflate(layoutInflater)
+        _binding = FragmentDetailsBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -148,5 +153,10 @@ class CardDetailsFragment : Fragment() {
         } else {
             banArray = emptyArray()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

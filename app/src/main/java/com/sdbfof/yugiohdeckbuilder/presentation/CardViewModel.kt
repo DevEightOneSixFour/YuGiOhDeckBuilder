@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sdbfof.yugiohdeckbuilder.data.model.states.PageState
 import com.sdbfof.yugiohdeckbuilder.data.model.states.YUIState
+import com.sdbfof.yugiohdeckbuilder.data.model.user.Yuser
 import com.sdbfof.yugiohdeckbuilder.domain.CardUseCase
 import com.sdbfof.yugiohdeckbuilder.utils.CardType
 import com.sdbfof.yugiohdeckbuilder.utils.PAGE_SIZE
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -31,6 +33,8 @@ class CardViewModel(private val useCase: CardUseCase): ViewModel() {
     get() = _currentType
 
     private val currentPageState = PageState()
+
+    private var currentYuser: Yuser? = null
 
     fun updatePageState(
         name: String? = null,
@@ -91,7 +95,10 @@ class CardViewModel(private val useCase: CardUseCase): ViewModel() {
                 language = pageState.language,
                 num = pageState.num,
                 offset = pageState.offset
-            ).collect {
+            ).catch {
+                _cardListLiveData.postValue(YUIState.Error(""))
+            }
+                .collect {
                 _cardListLiveData.postValue(it)
             }
         }
@@ -144,4 +151,7 @@ class CardViewModel(private val useCase: CardUseCase): ViewModel() {
 
     fun getPageState() = currentPageState
 
+    fun logOut() {
+        currentYuser = null
+    }
 }

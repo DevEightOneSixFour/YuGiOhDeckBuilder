@@ -6,8 +6,6 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.sdbfof.yugiohdeckbuilder.R
 import com.sdbfof.yugiohdeckbuilder.data.model.states.YUIState
@@ -16,19 +14,22 @@ import com.sdbfof.yugiohdeckbuilder.databinding.FragmentFilterBinding
 import com.sdbfof.yugiohdeckbuilder.presentation.CardViewModel
 import com.sdbfof.yugiohdeckbuilder.utils.*
 
-class FilterFragment : Fragment() {
+class FilterFragment : BaseCardFragment() {
 
-    private lateinit var binding: FragmentFilterBinding
+    private var _binding: FragmentFilterBinding? = null
+    private val binding: FragmentFilterBinding
+        get() = _binding!!
     private lateinit var alertBinding: CustomFilterAlertBinding
-    private lateinit var viewModel: CardViewModel
+    private val viewModel: CardViewModel by lazy {
+        println(provideCardViewModel().toString())
+        provideCardViewModel() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentFilterBinding.inflate(layoutInflater)
-        viewModel = ViewModelProvider(requireActivity())[CardViewModel::class.java]
+        _binding = FragmentFilterBinding.inflate(layoutInflater)
 
         configureObservers()
         return binding.root
@@ -408,5 +409,10 @@ class FilterFragment : Fragment() {
             resources.getStringArray(R.array.languages)[4] -> PORTUGUESE
             else -> null
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
