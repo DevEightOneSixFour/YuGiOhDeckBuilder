@@ -48,15 +48,15 @@
 
     <!--  Login  -->
     <string name="login_title_text">YuGiOh Deck Builder</string>
-    <string name="login_enter_email">Email</string>
+    <string name="login_enter_username">Username</string>
     <string name="login_enter_password">Password</string>
     <string name="login_begin_building">Begin Building</string>
     <string name="login_save_checkbox">Save login?</string>
     <string name="login_new_account">New? Create an account!</string>
 
     <!--  Create Account  -->
-    <string name="login_email">Email</string>
-    <string name="login_repeat_password">Repeat Password</string>
+    <string name="account_email">Email</string>
+    <string name="account_repeat_password">Repeat Password</string>
     <string name="account_create_title">Create Account</string>
     <string name="account_submit_btn">Submit</string>
     <string name="account_valid_password">Passwords need to match</string>

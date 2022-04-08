@@ -9,19 +9,18 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.sdbfof.yugiohdeckbuilder.R
-import com.sdbfof.yugiohdeckbuilder.data.model.response.Card
-import com.sdbfof.yugiohdeckbuilder.data.model.response.CardSet
-import com.sdbfof.yugiohdeckbuilder.data.model.user.Deck
 import com.sdbfof.yugiohdeckbuilder.data.model.user.Yuser
 import com.sdbfof.yugiohdeckbuilder.databinding.FragmentCreateAccountBinding
 import com.sdbfof.yugiohdeckbuilder.utils.AccountStatus
-import java.util.*
 
-class CreateAccountFragment : BaseFBFragment() {
-    private lateinit var binding: FragmentCreateAccountBinding
+class CreateAccountFragment : BaseAccountFragment() {
+    private var _binding: FragmentCreateAccountBinding? = null
+    private val binding: FragmentCreateAccountBinding
+        get() = _binding!!
     private lateinit var auth: FirebaseAuth
-    private val viewmModel by lazy {
-        getAccountViewModel()
+    private val viewModel by lazy {
+        println(provideAccountViewModel().toString())
+        provideAccountViewModel()
     }
 
     override fun onCreateView(
@@ -29,7 +28,7 @@ class CreateAccountFragment : BaseFBFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentCreateAccountBinding.inflate(layoutInflater)
+        _binding = FragmentCreateAccountBinding.inflate(layoutInflater)
         createTextWatcher()
         configureObservers()
         binding.apply {
@@ -49,7 +48,7 @@ class CreateAccountFragment : BaseFBFragment() {
 
     private fun configureObservers() {
         var msg = ""
-        viewmModel.accountStatus.observe(viewLifecycleOwner) { status ->
+        viewModel.accountStatus.observe(viewLifecycleOwner) { status ->
             when (status) {
                 AccountStatus.EXISTS -> {
                     msg = resources.getString(R.string.account_existing_email)
@@ -123,7 +122,7 @@ class CreateAccountFragment : BaseFBFragment() {
                     email = binding.tietInputEmail.text.toString(),
                     password = binding.tietInputPassword.text.toString()
                 )
-                viewmModel.createAccount(yuser)
+                viewModel.createAccount(yuser)
             }
         }
     }
@@ -147,26 +146,9 @@ class CreateAccountFragment : BaseFBFragment() {
         return true
     }
 
-//    fun submitProfile(yuser: Yuser) {
-//        auth.createUserWithEmailAndPassword(yuser.email, yuser.password)
-//            .addOnCompleteListener { task ->
-//                if (task.isSuccessful) {
-//                    Log.d(TAG, "User created successfully")
-//                    currentUser = auth.currentUser
-//                    Log.d(TAG, "Current User: $currentUser")
-//                    updateUI(currentUser)
-//                } else {
-//                    updateUI(null)
-//                    Log.d(TAG, "Error: ${task.exception}")
-//                }
-//            }.addOnCanceledListener {
-//
-//            }
-//    }
-//
-//    fun updateUI(user: FirebaseUser?) {
-//        if (user != null) {
-//
-//        }
-//    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        clearTextWatcher()
+    }
 }

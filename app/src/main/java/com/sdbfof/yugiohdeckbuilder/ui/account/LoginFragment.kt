@@ -15,13 +15,16 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.sdbfof.yugiohdeckbuilder.R
 import com.sdbfof.yugiohdeckbuilder.databinding.FragmentLoginBinding
-import com.sdbfof.yugiohdeckbuilder.di.DI
 import com.sdbfof.yugiohdeckbuilder.utils.AccountStatus
 
-class LoginFragment: BaseFBFragment() {
-    private lateinit var binding: FragmentLoginBinding
-    private val viewmModel by lazy {
-        getAccountViewModel()
+class LoginFragment: BaseAccountFragment() {
+    private var _binding: FragmentLoginBinding? = null
+    private val binding : FragmentLoginBinding
+        get() = _binding!!
+
+    private val viewModel by lazy {
+        println(provideAccountViewModel().toString())
+        provideAccountViewModel()
     }
 
     override fun onCreateView(
@@ -29,30 +32,32 @@ class LoginFragment: BaseFBFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentLoginBinding.inflate(layoutInflater)
-        configureObservers()
+        _binding = FragmentLoginBinding.inflate(layoutInflater)
         createTextWatcher()
+        configureObservers()
         createAccountLink()
         binding.apply {
             tietUsername.addTextChangedListener(textWatcher)
             tietPassword.addTextChangedListener(textWatcher)
             btnLogin.setOnClickListener {
-                viewmModel.signInWithEmailAndPassword(
+                viewModel.signInWithEmailAndPassword(
                     binding.tietUsername.text.toString(),
                     binding.tietPassword.text.toString()
                 )
             }
             btnDebug.setOnClickListener {
-                viewmModel.fetchYuserData(binding.tietUsername.text.toString())
+                viewModel.fetchYuserData(binding.tietUsername.text.toString())
                 debugToFilters()
             }
         }
         return binding.root
     }
 
+
+
     private fun configureObservers() {
         var msg = ""
-        viewmModel.accountStatus.observe(viewLifecycleOwner) { status ->
+        viewModel.accountStatus.observe(viewLifecycleOwner) { status ->
             when (status) {
                 AccountStatus.SIGN_IN_ERROR -> {
                     msg = resources.getString(R.string.account_not_found)
@@ -67,6 +72,7 @@ class LoginFragment: BaseFBFragment() {
     }
 
     private fun moveToFilters() {
+        clearTextWatcher()
         this.findNavController().navigate(
             LoginFragmentDirections.actionNavLoginToNavFilter()
         )
@@ -97,6 +103,12 @@ class LoginFragment: BaseFBFragment() {
             text = ss
             movementMethod = LinkMovementMethod()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        clearTextWatcher()
     }
 
     private fun debugToFilters() {

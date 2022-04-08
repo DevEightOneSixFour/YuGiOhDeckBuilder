@@ -7,20 +7,16 @@ import com.google.android.material.textfield.TextInputEditText
 import com.sdbfof.yugiohdeckbuilder.presentation.AccountViewModel
 import com.sdbfof.yugiohdeckbuilder.utils.LoginTextWatcher
 
-open class BaseFBFragment : Fragment() {
-    lateinit var textWatcher: LoginTextWatcher
+open class BaseAccountFragment : Fragment() {
+    var textWatcher: LoginTextWatcher? = null
 
-    open fun getAccountViewModel() = ViewModelProvider(requireActivity())[AccountViewModel::class.java]
+    fun provideAccountViewModel() = ViewModelProvider(requireActivity())[AccountViewModel::class.java]
 
     fun setTextWatcher(list: List<TextInputEditText>, btn: Button) {
         textWatcher = LoginTextWatcher(list, btn)
     }
 
-    fun yuserInputValidation(list: List<TextInputEditText>) {
-        for (i in list) {
-            when {
-
-            }
-        }
+    fun clearTextWatcher() {
+        textWatcher = null
     }
 }
