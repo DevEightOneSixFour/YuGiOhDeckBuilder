@@ -6,4 +6,7 @@ import com.sdbfof.yugiohdeckbuilder.presentation.CardViewModel
 
 open class BaseCardFragment: Fragment() {
     fun provideCardViewModel() = ViewModelProvider(requireActivity())[CardViewModel::class.java]
+    fun yuserLogout(viewModel: CardViewModel) {
+        viewModel.yuserLogout()
+    }
 }

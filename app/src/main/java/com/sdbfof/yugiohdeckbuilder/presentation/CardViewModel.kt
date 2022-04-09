@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sdbfof.yugiohdeckbuilder.data.model.states.PageState
 import com.sdbfof.yugiohdeckbuilder.data.model.states.YUIState
-import com.sdbfof.yugiohdeckbuilder.data.model.user.Yuser
+import com.sdbfof.yugiohdeckbuilder.data.model.yuser.Yuser
 import com.sdbfof.yugiohdeckbuilder.domain.CardUseCase
 import com.sdbfof.yugiohdeckbuilder.utils.CardType
 import com.sdbfof.yugiohdeckbuilder.utils.PAGE_SIZE
@@ -34,7 +34,7 @@ class CardViewModel(private val useCase: CardUseCase): ViewModel() {
 
     private val currentPageState = PageState()
 
-    private var currentYuser: Yuser? = null
+    var currentYuser: Yuser? = null
 
     fun updatePageState(
         name: String? = null,
@@ -130,7 +130,7 @@ class CardViewModel(private val useCase: CardUseCase): ViewModel() {
     }
 
     fun clearPageState() {
-        currentPageState.run {
+        currentPageState.apply {
             name = null
             archetype = null
             level = null
@@ -151,7 +151,8 @@ class CardViewModel(private val useCase: CardUseCase): ViewModel() {
 
     fun getPageState() = currentPageState
 
-    fun logOut() {
+    fun yuserLogout() {
+
         currentYuser = null
     }
 }

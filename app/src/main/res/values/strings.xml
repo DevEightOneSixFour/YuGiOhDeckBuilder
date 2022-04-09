@@ -43,6 +43,12 @@
     <string name="selected_filter_empty_title">No Filters Selected</string>
     <string name="selected_filter_empty_list">Search All Cards?</string>
 
+    <!-- Logout Dialog   -->
+    <string name="logout_title">Logging Out?</string>
+    <string name="logout_cancel">Cancel</string>
+    <string name="logout_confirm">Log Me Out</string>
+    <string name="logout_yuser">Log out as %s?</string>
+
     <string name="main_deck">Main Deck</string>
     <string name="extra_deck">Extra Deck</string>
 
@@ -53,19 +59,20 @@
     <string name="login_begin_building">Begin Building</string>
     <string name="login_save_checkbox">Save login?</string>
     <string name="login_new_account">New? Create an account!</string>
+    <string name="login_not_found">Account not found</string>
+    <string name="login_signed_in">Welcome %s, let\'s get building!</string>
 
     <!--  Create Account  -->
     <string name="account_email">Email</string>
     <string name="account_repeat_password">Repeat Password</string>
     <string name="account_create_title">Create Account</string>
     <string name="account_submit_btn">Submit</string>
-    <string name="account_valid_password">Passwords need to match</string>
-    <string name="account_valid_email">Invalid email</string>
-    <string name="account_existing_email">Email is already used, please try another</string>
+    <string name="account_validate_password">Passwords need to match</string>
+    <string name="account_validate_email">Invalid email</string>
+    <string name="account_existing_email">Email is already used</string>
     <string name="account_existing_username">Username is already used</string>
     <string name="account_successful_submission">%s, your account is created</string>
-    <string name="account_not_found">Account not found</string>
-    <string name="account_signed_in">Welcome, let\'s get building!</string>
+
     <string name="account_username_credentials">Must not have \'.\', \'#\', \'$\', \'[\', or \']\' </string>
 
     <!--  Others to Categorize  -->

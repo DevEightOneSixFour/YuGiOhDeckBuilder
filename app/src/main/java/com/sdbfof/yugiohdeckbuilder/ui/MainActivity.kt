@@ -1,7 +1,6 @@
 package com.sdbfof.yugiohdeckbuilder.ui
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.sdbfof.yugiohdeckbuilder.databinding.ActivityMainBinding
 import com.sdbfof.yugiohdeckbuilder.di.DI

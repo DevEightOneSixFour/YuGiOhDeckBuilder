@@ -1,11 +1,16 @@
 package com.sdbfof.yugiohdeckbuilder.ui.cards
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.sdbfof.yugiohdeckbuilder.R
 import com.sdbfof.yugiohdeckbuilder.data.model.states.YUIState
@@ -20,9 +25,7 @@ class FilterFragment : BaseCardFragment() {
     private val binding: FragmentFilterBinding
         get() = _binding!!
     private lateinit var alertBinding: CustomFilterAlertBinding
-    private val viewModel: CardViewModel by lazy {
-        println(provideCardViewModel().toString())
-        provideCardViewModel() }
+    private val viewModel: CardViewModel by lazy { provideCardViewModel() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,6 +33,11 @@ class FilterFragment : BaseCardFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFilterBinding.inflate(layoutInflater)
+
+        val callback = requireActivity()
+            .onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+                logoutCheck()
+            }
 
         configureObservers()
         return binding.root
@@ -74,7 +82,7 @@ class FilterFragment : BaseCardFragment() {
                 }
             }
             CardType.MONSTER -> {
-                listOfFilters.run {
+                listOfFilters.apply {
                     add(binding.spnMainTypes.selectedItem.toString())
                     if (binding.spnMonsterRaces.selectedItemPosition != 0) {
                         add(binding.spnMonsterRaces.selectedItem.toString())
@@ -88,7 +96,7 @@ class FilterFragment : BaseCardFragment() {
                 }
             }
             CardType.EXTRA -> {
-                listOfFilters.run {
+                listOfFilters.apply {
                     add(binding.spnExtraTypes.selectedItem.toString())
                     if (binding.spnMonsterRaces.selectedItemPosition != 0) {
                         add(binding.spnMonsterRaces.selectedItem.toString())
@@ -102,7 +110,7 @@ class FilterFragment : BaseCardFragment() {
                 }
             }
             CardType.SPELL -> {
-                listOfFilters.run {
+                listOfFilters.apply {
                     add(SPELL_CARD)
                     if (binding.spnSpellRaces.selectedItemPosition != 0) {
                         add(binding.spnSpellRaces.selectedItem.toString())
@@ -110,7 +118,7 @@ class FilterFragment : BaseCardFragment() {
                 }
             }
             CardType.TRAP -> {
-                listOfFilters.run {
+                listOfFilters.apply {
                     add(TRAP_CARD)
                     if (binding.spnTrapRaces.selectedItemPosition != 0) {
                         add(binding.spnTrapRaces.selectedItem.toString())
@@ -130,7 +138,7 @@ class FilterFragment : BaseCardFragment() {
         alertBinding = CustomFilterAlertBinding.inflate(layoutInflater)
 
         with(builder) {
-            alertBinding.run {
+            alertBinding.apply {
                 if (list.isEmpty()) {
                     tvFilterAlertTitle.text =
                         resources.getString(R.string.selected_filter_empty_title)
@@ -198,7 +206,7 @@ class FilterFragment : BaseCardFragment() {
         viewModel.cardByNameLiveData.observe(viewLifecycleOwner) { uiState ->
             when (uiState) {
                 is YUIState.SuccessList -> {
-                    binding.run {
+                    binding.apply {
                         pbNameFilter.visibility = View.GONE
                         actvFname.setAdapter(
                             ArrayAdapter(
@@ -210,7 +218,7 @@ class FilterFragment : BaseCardFragment() {
                     }
                 }
                 is YUIState.Error -> {
-                    binding.run {
+                    binding.apply {
                         pbNameFilter.visibility = View.GONE
                         actvFname.error = resources.getString(R.string.cannot_find)
                     }
@@ -221,36 +229,36 @@ class FilterFragment : BaseCardFragment() {
     }
 
     private fun clearFilters() {
-        binding.run {
+        binding.apply {
             rbNoType.isChecked = true
             pbNameFilter.visibility = View.GONE
             tilNameFilter.visibility = View.GONE
             rgMonsterDeckTypes.visibility = View.GONE
-            spnExtraTypes.run {
+            spnExtraTypes.apply {
                 setSelection(0)
                 visibility = View.GONE
             }
-            spnMainTypes.run {
+            spnMainTypes.apply {
                 setSelection(0)
                 visibility = View.GONE
             }
-            spnMonsterRaces.run {
+            spnMonsterRaces.apply {
                 setSelection(0)
                 visibility = View.GONE
             }
-            spnAttributes.run {
+            spnAttributes.apply {
                 setSelection(0)
                 visibility = View.GONE
             }
-            spnLevels.run {
+            spnLevels.apply {
                 setSelection(0)
                 visibility = View.GONE
             }
-            spnSpellRaces.run {
+            spnSpellRaces.apply {
                 setSelection(0)
                 visibility = View.GONE
             }
-            spnTrapRaces.run {
+            spnTrapRaces.apply {
                 setSelection(0)
                 visibility = View.GONE
             }
@@ -258,7 +266,7 @@ class FilterFragment : BaseCardFragment() {
     }
 
     private fun nameUIUpdate() {
-        binding.run {
+        binding.apply {
             actvFname.text.clear()
             tilNameFilter.visibility = View.VISIBLE
             pbNameFilter.visibility = View.GONE
@@ -274,7 +282,7 @@ class FilterFragment : BaseCardFragment() {
     }
 
     private fun deckUIUpdate(isMainDeck: Boolean) {
-        binding.run {
+        binding.apply {
             tilNameFilter.visibility = View.GONE
             spnSpellRaces.visibility = View.GONE
             spnTrapRaces.visibility = View.GONE
@@ -296,7 +304,7 @@ class FilterFragment : BaseCardFragment() {
     }
 
     private fun spellTrapUIUpdate(isSpell: Boolean) {
-        binding.run {
+        binding.apply {
             pbNameFilter.visibility = View.GONE
             tilNameFilter.visibility = View.GONE
             rgMonsterDeckTypes.visibility = View.GONE
@@ -409,6 +417,38 @@ class FilterFragment : BaseCardFragment() {
             resources.getStringArray(R.array.languages)[4] -> PORTUGUESE
             else -> null
         }
+    }
+
+    private fun logoutCheck() {
+        val builder = AlertDialog.Builder(requireContext()).create()
+        alertBinding = CustomFilterAlertBinding.inflate(layoutInflater)
+
+        with(builder) {
+            alertBinding.apply {
+                tvFilterAlertTitle.text = resources.getString(R.string.logout_title)
+                tvFilterAlertList.text = resources.getString(R.string.logout_yuser,viewModel.currentYuser?.username ?: "Yuser")
+                btnFilterAlertDismiss.apply {
+                    text = resources.getString(R.string.logout_cancel)
+                    setOnClickListener { builder.dismiss() }
+                }
+                btnFilterAlertSearch.apply {
+                    text = resources.getString(R.string.logout_confirm)
+                    setOnClickListener {
+                        builder.dismiss()
+                        moveToLogin()
+                    }
+                }
+            }
+            setView(alertBinding.root)
+            show()
+        }
+    }
+
+    private fun moveToLogin() {
+        this.findNavController().navigate(
+            FilterFragmentDirections.actionNavFilterToNavLogin()
+        )
+        this.onDestroyView()
     }
 
     override fun onDestroyView() {

@@ -9,19 +9,17 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.sdbfof.yugiohdeckbuilder.R
-import com.sdbfof.yugiohdeckbuilder.data.model.user.Yuser
+import com.sdbfof.yugiohdeckbuilder.data.model.yuser.Yuser
 import com.sdbfof.yugiohdeckbuilder.databinding.FragmentCreateAccountBinding
 import com.sdbfof.yugiohdeckbuilder.utils.AccountStatus
+import com.sdbfof.yugiohdeckbuilder.utils.showToast
 
 class CreateAccountFragment : BaseAccountFragment() {
     private var _binding: FragmentCreateAccountBinding? = null
     private val binding: FragmentCreateAccountBinding
         get() = _binding!!
     private lateinit var auth: FirebaseAuth
-    private val viewModel by lazy {
-        println(provideAccountViewModel().toString())
-        provideAccountViewModel()
-    }
+    private val viewModel by lazy { provideAccountViewModel() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,35 +45,30 @@ class CreateAccountFragment : BaseAccountFragment() {
     }
 
     private fun configureObservers() {
-        var msg = ""
         viewModel.accountStatus.observe(viewLifecycleOwner) { status ->
             when (status) {
                 AccountStatus.EXISTS -> {
-                    msg = resources.getString(R.string.account_existing_email)
+                    resources.getString(R.string.account_existing_email)
+                        .showToast(requireContext(), Toast.LENGTH_SHORT)
                 }
                 AccountStatus.CANCELED -> {
-                    msg = "CANCELED"
+                    "CANCELED".showToast(requireContext(), Toast.LENGTH_SHORT)
                 }
                 AccountStatus.CREATION_ERROR -> {
-                    msg = "ERROR"
+                    "ERROR".showToast(requireContext(), Toast.LENGTH_SHORT)
                 }
                 AccountStatus.SUBMITTED -> {
-                    msg = resources.getString(R.string.account_create_title)
+                    resources.getString(R.string.account_successful_submission)
+                        .showToast(requireContext(), Toast.LENGTH_SHORT)
                     findNavController().navigate(
                         CreateAccountFragmentDirections.actionNavCreateAccountToNavLogin()
                     )
                 }
                 AccountStatus.SIGN_IN_ERROR -> {
-                    msg = resources.getString(R.string.account_not_found)
-                }
-                AccountStatus.SIGNED_IN -> {
-                    msg = resources.getString(R.string.account_signed_in)
-                }
-                AccountStatus.SUBMITTING -> {
-                    msg = "Submitting account"
+                    resources.getString(R.string.login_not_found)
+                        .showToast(requireContext(), Toast.LENGTH_SHORT)
                 }
             }
-            Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
         }
     }
 
@@ -100,10 +93,10 @@ class CreateAccountFragment : BaseAccountFragment() {
                 )
             ) -> {
                 binding.tietInputPasswordRepeat.error =
-                    resources.getString(R.string.account_valid_password)
+                    resources.getString(R.string.account_validate_password)
             }
             !checkEmail(binding.tietInputEmail.text.toString()) -> {
-                binding.tietInputEmail.error = resources.getString(R.string.account_valid_email)
+                binding.tietInputEmail.error = resources.getString(R.string.account_validate_email)
             }
             checkUserNameForSpecialCharacters(binding.tietInputUsername.text.toString()) -> {
                 binding.tietInputUsername.error =

@@ -16,7 +16,5 @@ open class BaseAccountFragment : Fragment() {
         textWatcher = LoginTextWatcher(list, btn)
     }
 
-    fun clearTextWatcher() {
-        textWatcher = null
-    }
+    fun clearTextWatcher() { textWatcher = null }
 }
