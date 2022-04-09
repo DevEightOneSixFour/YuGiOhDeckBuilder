@@ -21,8 +21,6 @@ class AccountViewModel(
     private val auth: FirebaseAuth
 ) : ViewModel() {
 
-    var currentUser: FirebaseUser? = null
-
     private val _accountStatus = MutableLiveData<AccountStatus>()
     val accountStatus: LiveData<AccountStatus>
         get() = _accountStatus
@@ -30,10 +28,6 @@ class AccountViewModel(
     private val _currentYuser = MutableLiveData<Yuser>()
     val currentYuser: LiveData<Yuser>
         get() = _currentYuser
-
-    init {
-        _accountStatus.postValue(AccountStatus.CLEAR)
-    }
 
     fun readRemoteDatabase(checkForThis: String) {
         val task = database.child(checkForThis)

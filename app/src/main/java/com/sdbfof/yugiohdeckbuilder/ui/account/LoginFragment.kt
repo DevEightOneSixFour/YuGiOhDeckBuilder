@@ -51,6 +51,14 @@ class LoginFragment: BaseAccountFragment() {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        binding.apply {
+            tietUsername.text?.clear()
+            tietPassword.text?.clear()
+        }
+    }
+
     private fun configureObservers() {
         viewModel.accountStatus.observe(viewLifecycleOwner) { status ->
             when (status) {

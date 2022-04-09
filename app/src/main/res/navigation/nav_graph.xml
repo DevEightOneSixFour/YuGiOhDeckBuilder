@@ -29,9 +29,6 @@
         android:name="com.sdbfof.yugiohdeckbuilder.ui.cards.FilterFragment">
 
         <action
-            android:id="@+id/action_nav_filter_to_nav_login"
-            app:destination="@id/nav_login"/>
-        <action
             android:id="@+id/action_nav_filter_to_nav_card_list"
             app:destination="@id/nav_card_list" />
         <action

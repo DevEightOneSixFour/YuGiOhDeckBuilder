@@ -7,17 +7,20 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.sdbfof.yugiohdeckbuilder.R
 import com.sdbfof.yugiohdeckbuilder.data.model.states.YUIState
 import com.sdbfof.yugiohdeckbuilder.databinding.CustomFilterAlertBinding
 import com.sdbfof.yugiohdeckbuilder.databinding.FragmentFilterBinding
 import com.sdbfof.yugiohdeckbuilder.presentation.CardViewModel
 import com.sdbfof.yugiohdeckbuilder.utils.*
+import java.util.*
 
 class FilterFragment : BaseCardFragment() {
 
@@ -25,6 +28,8 @@ class FilterFragment : BaseCardFragment() {
     private val binding: FragmentFilterBinding
         get() = _binding!!
     private lateinit var alertBinding: CustomFilterAlertBinding
+    private val args: FilterFragmentArgs by navArgs()
+    private var callback: OnBackPressedCallback? = null
     private val viewModel: CardViewModel by lazy { provideCardViewModel() }
 
     override fun onCreateView(
@@ -34,11 +39,12 @@ class FilterFragment : BaseCardFragment() {
     ): View {
         _binding = FragmentFilterBinding.inflate(layoutInflater)
 
-        val callback = requireActivity()
-            .onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+        callback = object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
                 logoutCheck()
             }
-
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(callback as OnBackPressedCallback)
         configureObservers()
         return binding.root
     }
@@ -176,6 +182,7 @@ class FilterFragment : BaseCardFragment() {
     }
 
     private fun configureObservers() {
+        viewModel.setYuser(args.yuser)
         viewModel.currentType.observe(viewLifecycleOwner) { type ->
             when (type) {
                 CardType.NAME -> {
@@ -426,7 +433,10 @@ class FilterFragment : BaseCardFragment() {
         with(builder) {
             alertBinding.apply {
                 tvFilterAlertTitle.text = resources.getString(R.string.logout_title)
-                tvFilterAlertList.text = resources.getString(R.string.logout_yuser,viewModel.currentYuser?.username ?: "Yuser")
+                tvFilterAlertList.text = resources.getString(
+                    R.string.logout_yuser,
+                    viewModel.currentYuser?.username ?: "Yuser"
+                )
                 btnFilterAlertDismiss.apply {
                     text = resources.getString(R.string.logout_cancel)
                     setOnClickListener { builder.dismiss() }
@@ -445,10 +455,8 @@ class FilterFragment : BaseCardFragment() {
     }
 
     private fun moveToLogin() {
-        this.findNavController().navigate(
-            FilterFragmentDirections.actionNavFilterToNavLogin()
-        )
-        this.onDestroyView()
+        callback?.remove()
+        requireActivity().onBackPressed()
     }
 
     override fun onDestroyView() {

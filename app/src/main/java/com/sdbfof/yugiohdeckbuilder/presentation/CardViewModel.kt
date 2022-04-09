@@ -151,6 +151,8 @@ class CardViewModel(private val useCase: CardUseCase): ViewModel() {
 
     fun getPageState() = currentPageState
 
+    fun setYuser(yuser: Yuser?) { currentYuser = yuser }
+
     fun yuserLogout() {
 
         currentYuser = null
