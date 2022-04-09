@@ -16,7 +16,6 @@ enum class DeckType {
 
 enum class AccountStatus {
     EXISTS,
-    SUBMITTING,
     SUBMITTED,
     CANCELED,
     CREATION_ERROR,
@@ -24,5 +23,6 @@ enum class AccountStatus {
     EMAIL_EXISTS,
     USERNAME_EXISTS,
     SIGNED_IN,
-    SIGNED_OUT
+    SIGNED_OUT,
+    CLEAR
 }

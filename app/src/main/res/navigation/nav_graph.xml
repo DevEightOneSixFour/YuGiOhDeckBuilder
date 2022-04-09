@@ -29,11 +29,20 @@
         android:name="com.sdbfof.yugiohdeckbuilder.ui.cards.FilterFragment">
 
         <action
+            android:id="@+id/action_nav_filter_to_nav_login"
+            app:destination="@id/nav_login"/>
+        <action
             android:id="@+id/action_nav_filter_to_nav_card_list"
             app:destination="@id/nav_card_list" />
         <action
             android:id="@+id/action_nav_filter_to_nav_card_details"
             app:destination="@id/nav_card_detail" />
+
+        <argument
+            android:name="yuser"
+            android:defaultValue="@null"
+            app:argType="com.sdbfof.yugiohdeckbuilder.data.model.yuser.Yuser"
+            app:nullable="true" />
 
     </fragment>
 

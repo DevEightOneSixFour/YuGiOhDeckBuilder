@@ -1,15 +1,18 @@
-package com.sdbfof.yugiohdeckbuilder.data.model.user
+package com.sdbfof.yugiohdeckbuilder.data.model.yuser
 
+import android.os.Parcelable
 import com.sdbfof.yugiohdeckbuilder.data.model.response.Card
 import com.sdbfof.yugiohdeckbuilder.utils.*
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Deck(
     val thumbnail: String? = null,
     val name: String? = null,
     val deckType: DeckType? = null,
     val cards: List<Card> = mutableListOf(),
     val price: String? = null
-) {
+) : Parcelable {
     private val priceMap = HashMap<String,Double>()
     fun getDeckPrice() = priceMap
     fun calcDeckPrice(){

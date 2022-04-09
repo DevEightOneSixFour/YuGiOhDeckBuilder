@@ -9,8 +9,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
-import com.sdbfof.yugiohdeckbuilder.data.model.user.Deck
-import com.sdbfof.yugiohdeckbuilder.data.model.user.Yuser
+import com.sdbfof.yugiohdeckbuilder.data.model.yuser.Deck
+import com.sdbfof.yugiohdeckbuilder.data.model.yuser.Yuser
 import com.sdbfof.yugiohdeckbuilder.utils.AccountStatus
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -31,12 +31,15 @@ class AccountViewModel(
     val currentYuser: LiveData<Yuser>
         get() = _currentYuser
 
+    init {
+        _accountStatus.postValue(AccountStatus.CLEAR)
+    }
+
     fun readRemoteDatabase(checkForThis: String) {
         val task = database.child(checkForThis)
 
         viewModelScope.launch {
             task.get().addOnSuccessListener {
-                Log.d("***** in CR", "${it.exists()}")
                 if (it.exists()) _accountStatus.postValue(AccountStatus.EXISTS)
                 else _accountStatus.postValue(AccountStatus.SIGN_IN_ERROR)
             }.addOnCanceledListener {
@@ -64,21 +67,41 @@ class AccountViewModel(
             }
     }
 
-    fun signInWithEmailAndPassword(email: String, password: String) {
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
+    fun signInWithUsernameAndPassword(username: String, password: String) {
+        database.child(username).get().addOnCompleteListener { task ->
+            try {
                 if (task.isComplete) {
-                    fetchYuserData(task.result.user?.uid.toString())
+                    val result = task.result
+                    if (!result.exists() || result.child("password").value != password) {
+                        _accountStatus.postValue(AccountStatus.SIGN_IN_ERROR)
+                    } else {
+                        val decks = result.child("decks")
+                        _currentYuser.postValue(convertToYuser(result, decks))
+                        _accountStatus.postValue(AccountStatus.SIGNED_IN)
+                    }
                 } else {
-                    _accountStatus.postValue(AccountStatus.SIGN_IN_ERROR)
+                    throw Exception("Error signing in")
                 }
-            }.addOnCanceledListener {
-                _accountStatus.postValue(AccountStatus.CANCELED)
-            }.addOnFailureListener {
+            } catch (e: Exception) {
+                Log.e("*****", e.toString())
                 _accountStatus.postValue(AccountStatus.SIGN_IN_ERROR)
             }
+        }
+//        auth.signInWithEmailAndPassword(username, password)
+//            .addOnCompleteListener { task ->
+//                if (task.isComplete) {
+//                    fetchYuserData(task.result.user?.uid.toString())
+//                } else {
+//                    _accountStatus.postValue(AccountStatus.SIGN_IN_ERROR)
+//                }
+//            }.addOnCanceledListener {
+//                _accountStatus.postValue(AccountStatus.CANCELED)
+//            }.addOnFailureListener {
+//                _accountStatus.postValue(AccountStatus.SIGN_IN_ERROR)
+//            }
     }
 
+    // debug function -> delete or move later
     fun fetchYuserData(username: String) {
         database.child(username).get().addOnCompleteListener {
             try {
@@ -105,7 +128,7 @@ class AccountViewModel(
         val email: String = resultSnapShot.child("email").value.toString()
         val password: String = resultSnapShot.child("password").value.toString()
         val avatar: String? = resultSnapShot.child("avatar").value as String?
-        val decks : MutableList<Deck?>? = decksSnapShot.value as MutableList<Deck?>?
+        val decks : MutableList<Deck?>? = decksSnapShot.value as MutableList<Deck?>? //todo refactor?
 
         return Yuser(
             username = username,
@@ -115,4 +138,6 @@ class AccountViewModel(
             decks = decks
         )
     }
+
+    fun clearAccountStatus() { _accountStatus.postValue(AccountStatus.CLEAR) }
 }

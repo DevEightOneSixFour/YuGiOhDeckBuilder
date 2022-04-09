@@ -16,16 +16,14 @@ import androidx.navigation.fragment.findNavController
 import com.sdbfof.yugiohdeckbuilder.R
 import com.sdbfof.yugiohdeckbuilder.databinding.FragmentLoginBinding
 import com.sdbfof.yugiohdeckbuilder.utils.AccountStatus
+import com.sdbfof.yugiohdeckbuilder.utils.showToast
 
 class LoginFragment: BaseAccountFragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding : FragmentLoginBinding
         get() = _binding!!
 
-    private val viewModel by lazy {
-        println(provideAccountViewModel().toString())
-        provideAccountViewModel()
-    }
+    private val viewModel by lazy { provideAccountViewModel() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,7 +38,7 @@ class LoginFragment: BaseAccountFragment() {
             tietUsername.addTextChangedListener(textWatcher)
             tietPassword.addTextChangedListener(textWatcher)
             btnLogin.setOnClickListener {
-                viewModel.signInWithEmailAndPassword(
+                viewModel.signInWithUsernameAndPassword(
                     binding.tietUsername.text.toString(),
                     binding.tietPassword.text.toString()
                 )
@@ -53,29 +51,30 @@ class LoginFragment: BaseAccountFragment() {
         return binding.root
     }
 
-
-
     private fun configureObservers() {
-        var msg = ""
         viewModel.accountStatus.observe(viewLifecycleOwner) { status ->
             when (status) {
                 AccountStatus.SIGN_IN_ERROR -> {
-                    msg = resources.getString(R.string.account_not_found)
+                    resources.getString(R.string.login_not_found)
+                        .showToast(requireContext(), Toast.LENGTH_LONG)
                 }
                 AccountStatus.SIGNED_IN -> {
-                    msg = resources.getString(R.string.account_signed_in)
+                   resources.getString(
+                        R.string.login_signed_in,
+                        viewModel.currentYuser.value?.username
+                    ).showToast(requireContext(),Toast.LENGTH_LONG)
                     moveToFilters()
                 }
+                else -> {}
             }
-            Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
         }
     }
 
     private fun moveToFilters() {
-        clearTextWatcher()
         this.findNavController().navigate(
-            LoginFragmentDirections.actionNavLoginToNavFilter()
+            LoginFragmentDirections.actionNavLoginToNavFilter(viewModel.currentYuser.value)
         )
+        viewModel.clearAccountStatus()
     }
 
     private fun createTextWatcher() {
