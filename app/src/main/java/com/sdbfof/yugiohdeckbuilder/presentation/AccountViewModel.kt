@@ -25,8 +25,8 @@ class AccountViewModel(
     val accountStatus: LiveData<AccountStatus>
         get() = _accountStatus
 
-    private val _currentYuser = MutableLiveData<Yuser>()
-    val currentYuser: LiveData<Yuser>
+    private val _currentYuser = MutableLiveData<Yuser?>()
+    val currentYuser: LiveData<Yuser?>
         get() = _currentYuser
 
     fun readRemoteDatabase(checkForThis: String) {
@@ -134,4 +134,9 @@ class AccountViewModel(
     }
 
     fun clearAccountStatus() { _accountStatus.postValue(AccountStatus.CLEAR) }
+
+    fun loggingOut() {
+        _currentYuser.value = null
+        _accountStatus.postValue(AccountStatus.SIGNED_OUT)
+    }
 }

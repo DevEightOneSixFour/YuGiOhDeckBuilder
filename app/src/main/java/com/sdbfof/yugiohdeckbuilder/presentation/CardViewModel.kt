@@ -34,8 +34,6 @@ class CardViewModel(private val useCase: CardUseCase): ViewModel() {
 
     private val currentPageState = PageState()
 
-    var currentYuser: Yuser? = null
-
     fun updatePageState(
         name: String? = null,
         archetype: String? = null,
@@ -151,10 +149,4 @@ class CardViewModel(private val useCase: CardUseCase): ViewModel() {
 
     fun getPageState() = currentPageState
 
-    fun setYuser(yuser: Yuser?) { currentYuser = yuser }
-
-    fun yuserLogout() {
-
-        currentYuser = null
-    }
 }

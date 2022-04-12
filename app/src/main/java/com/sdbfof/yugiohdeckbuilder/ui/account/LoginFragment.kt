@@ -53,6 +53,7 @@ class LoginFragment: BaseAccountFragment() {
 
     override fun onStart() {
         super.onStart()
+        viewModel.loggingOut()
         binding.apply {
             tietUsername.text?.clear()
             tietPassword.text?.clear()
@@ -82,7 +83,7 @@ class LoginFragment: BaseAccountFragment() {
         this.findNavController().navigate(
             LoginFragmentDirections.actionNavLoginToNavFilter(viewModel.currentYuser.value)
         )
-        viewModel.clearAccountStatus()
+//        viewModel.clearAccountStatus()
     }
 
     private fun createTextWatcher() {

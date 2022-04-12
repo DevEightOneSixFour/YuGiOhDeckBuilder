@@ -31,9 +31,7 @@ class CardDetailsFragment : BaseCardFragment() {
     private lateinit var miscInfo: Array<String> // todo implement?
     private lateinit var banArray: Array<String>
 
-    private val viewModel by lazy {
-        println(provideCardViewModel().toString())
-        provideCardViewModel() }
+    private val cardViewModel by lazy { provideCardViewModel() }
 
 
     override fun onCreateView(

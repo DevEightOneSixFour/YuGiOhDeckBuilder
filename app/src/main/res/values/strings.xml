@@ -44,7 +44,7 @@
     <string name="selected_filter_empty_list">Search All Cards?</string>
 
     <!-- Logout Dialog   -->
-    <string name="logout_title">Logging Out?</string>
+    <string name="logout_title">Is this goodbye?</string>
     <string name="logout_cancel">Cancel</string>
     <string name="logout_confirm">Log Me Out</string>
     <string name="logout_yuser">Log out as %s?</string>
@@ -74,6 +74,12 @@
     <string name="account_successful_submission">%s, your account is created</string>
 
     <string name="account_username_credentials">Must not have \'.\', \'#\', \'$\', \'[\', or \']\' </string>
+
+    <!-- Menu -->
+    <string name="menu_profile">Profile</string>
+    <string name="menu_decks">Decks</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_logout">Logout</string>
 
     <!--  Others to Categorize  -->
     <string name="filter_by">Filter By</string>

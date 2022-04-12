@@ -6,12 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.sdbfof.yugiohdeckbuilder.R
@@ -19,8 +16,9 @@ import com.sdbfof.yugiohdeckbuilder.data.model.states.YUIState
 import com.sdbfof.yugiohdeckbuilder.databinding.CustomFilterAlertBinding
 import com.sdbfof.yugiohdeckbuilder.databinding.FragmentFilterBinding
 import com.sdbfof.yugiohdeckbuilder.presentation.CardViewModel
+import com.sdbfof.yugiohdeckbuilder.ui.CustomAlertView
+import com.sdbfof.yugiohdeckbuilder.ui.MainActivity
 import com.sdbfof.yugiohdeckbuilder.utils.*
-import java.util.*
 
 class FilterFragment : BaseCardFragment() {
 
@@ -38,6 +36,7 @@ class FilterFragment : BaseCardFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFilterBinding.inflate(layoutInflater)
+        configureObservers()
 
         callback = object: OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -45,7 +44,6 @@ class FilterFragment : BaseCardFragment() {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback as OnBackPressedCallback)
-        configureObservers()
         return binding.root
     }
 
@@ -140,35 +138,10 @@ class FilterFragment : BaseCardFragment() {
     }
 
     private fun buildFilterAlertView(list: List<String>) {
-        val builder = AlertDialog.Builder(requireContext()).create()
-        alertBinding = CustomFilterAlertBinding.inflate(layoutInflater)
-
-        with(builder) {
-            alertBinding.apply {
-                if (list.isEmpty()) {
-                    tvFilterAlertTitle.text =
-                        resources.getString(R.string.selected_filter_empty_title)
-                    tvFilterAlertList.text =
-                        resources.getString(R.string.selected_filter_empty_list)
-                    btnFilterAlertSearch.text =
-                        resources.getString(R.string.selected_filter_empty_button)
-                } else {
-                    tvFilterAlertList.text = list.joinToString(" | ")
-                }
-                btnFilterAlertSearch.setOnClickListener {
-                    builder.dismiss()
-                    moveToCardList()
-                }
-                btnFilterAlertDismiss.setOnClickListener {
-                    builder.dismiss()
-                }
-            }
-            setView(alertBinding.root)
-            show()
-        }
+        CustomAlertView(requireContext()).buildFilterAlertView(list, this)
     }
 
-    private fun moveToCardList() {
+    fun moveToCardList() {
         this.findNavController().navigate(
             FilterFragmentDirections.actionNavFilterToNavCardList(
                 fName = getByCardName(),
@@ -182,7 +155,6 @@ class FilterFragment : BaseCardFragment() {
     }
 
     private fun configureObservers() {
-        viewModel.setYuser(args.yuser)
         viewModel.currentType.observe(viewLifecycleOwner) { type ->
             when (type) {
                 CardType.NAME -> {
@@ -427,40 +399,12 @@ class FilterFragment : BaseCardFragment() {
     }
 
     private fun logoutCheck() {
-        val builder = AlertDialog.Builder(requireContext()).create()
-        alertBinding = CustomFilterAlertBinding.inflate(layoutInflater)
 
-        with(builder) {
-            alertBinding.apply {
-                tvFilterAlertTitle.text = resources.getString(R.string.logout_title)
-                tvFilterAlertList.text = resources.getString(
-                    R.string.logout_yuser,
-                    viewModel.currentYuser?.username ?: "Yuser"
-                )
-                btnFilterAlertDismiss.apply {
-                    text = resources.getString(R.string.logout_cancel)
-                    setOnClickListener { builder.dismiss() }
-                }
-                btnFilterAlertSearch.apply {
-                    text = resources.getString(R.string.logout_confirm)
-                    setOnClickListener {
-                        builder.dismiss()
-                        moveToLogin()
-                    }
-                }
-            }
-            setView(alertBinding.root)
-            show()
-        }
-    }
-
-    private fun moveToLogin() {
-        callback?.remove()
-        requireActivity().onBackPressed()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        callback?.remove()
         _binding = null
     }
 }
