@@ -23,6 +23,5 @@ enum class AccountStatus {
     EMAIL_EXISTS,
     USERNAME_EXISTS,
     SIGNED_IN,
-    SIGNED_OUT,
-    CLEAR
+    SIGNED_OUT
 }

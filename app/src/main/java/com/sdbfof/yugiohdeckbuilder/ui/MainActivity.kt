@@ -1,31 +1,34 @@
 package com.sdbfof.yugiohdeckbuilder.ui
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
 import com.sdbfof.yugiohdeckbuilder.R
 import com.sdbfof.yugiohdeckbuilder.databinding.ActivityMainBinding
-import com.sdbfof.yugiohdeckbuilder.databinding.CustomFilterAlertBinding
 import com.sdbfof.yugiohdeckbuilder.di.DI
 import com.sdbfof.yugiohdeckbuilder.presentation.AccountViewModel
 import com.sdbfof.yugiohdeckbuilder.presentation.CardViewModel
 import com.sdbfof.yugiohdeckbuilder.ui.cards.CardDetailsFragmentDirections
 import com.sdbfof.yugiohdeckbuilder.ui.cards.CardListFragmentDirections
 import com.sdbfof.yugiohdeckbuilder.ui.cards.FilterFragmentDirections
-import com.sdbfof.yugiohdeckbuilder.utils.AccountStatus
-import com.sdbfof.yugiohdeckbuilder.utils.showToast
+import com.sdbfof.yugiohdeckbuilder.utils.*
+import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var alertBinding: CustomFilterAlertBinding
     private lateinit var cardViewModel: CardViewModel
     private lateinit var accountViewModel: AccountViewModel
+    private val preferences by lazy { createPrefs() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,15 +50,15 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_profile -> {
-                "Profile".showToast(this, Toast.LENGTH_SHORT)
+                "Profile".showToast(this)
                 true
             }
             R.id.action_decks -> {
-                "Decks".showToast(this, Toast.LENGTH_SHORT)
+                "Decks".showToast(this)
                 true
             }
             R.id.action_settings -> {
-                "Settings".showToast(this, Toast.LENGTH_SHORT)
+                "Settings".showToast(this)
                 true
             }
             R.id.action_logout -> {
@@ -79,6 +82,10 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 AccountStatus.SIGNED_OUT -> {
+                    preferences.edit()
+                        .putString(PREF_KEY_1, null)
+                        .putString(PREF_KEY_2, null)
+                        .apply()
                     binding.apply {
                         tbUserMenu.title = null
                         ablTopBar.visibility = View.GONE
@@ -109,4 +116,11 @@ class MainActivity : AppCompatActivity() {
         }
         super.onBackPressed()
     }
+
+    private fun createPrefs(): SharedPreferences =
+        YuserSharedPrefs.create(
+            context = this,
+            masterKey = MasterKey.Builder(applicationContext)
+                .setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build()
+        )
 }
