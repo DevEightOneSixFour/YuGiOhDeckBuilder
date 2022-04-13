@@ -133,8 +133,6 @@ class AccountViewModel(
         )
     }
 
-    fun clearAccountStatus() { _accountStatus.postValue(AccountStatus.CLEAR) }
-
     fun loggingOut() {
         _currentYuser.value = null
         _accountStatus.postValue(AccountStatus.SIGNED_OUT)

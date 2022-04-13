@@ -28,4 +28,8 @@ const val FB_DATABASE_TITLE = "Yusers"
 
 const val PAGE_SIZE = 30
 
+const val PREFS_FILE = "yuser_storage.txt"
+const val PREF_KEY_1 = "KEY_1"
+const val PREF_KEY_2= "KEY_2"
+
 const val TAG = "***** "

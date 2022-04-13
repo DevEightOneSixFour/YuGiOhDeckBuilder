@@ -49,24 +49,24 @@ class CreateAccountFragment : BaseAccountFragment() {
             when (status) {
                 AccountStatus.EXISTS -> {
                     resources.getString(R.string.account_existing_email)
-                        .showToast(requireContext(), Toast.LENGTH_SHORT)
+                        .showToast(requireContext())
                 }
                 AccountStatus.CANCELED -> {
-                    "CANCELED".showToast(requireContext(), Toast.LENGTH_SHORT)
+                    "CANCELED".showToast(requireContext())
                 }
                 AccountStatus.CREATION_ERROR -> {
-                    "ERROR".showToast(requireContext(), Toast.LENGTH_SHORT)
+                    "ERROR".showToast(requireContext())
                 }
                 AccountStatus.SUBMITTED -> {
                     resources.getString(R.string.account_successful_submission)
-                        .showToast(requireContext(), Toast.LENGTH_SHORT)
+                        .showToast(requireContext())
                     findNavController().navigate(
                         CreateAccountFragmentDirections.actionNavCreateAccountToNavLogin()
                     )
                 }
                 AccountStatus.SIGN_IN_ERROR -> {
                     resources.getString(R.string.login_not_found)
-                        .showToast(requireContext(), Toast.LENGTH_SHORT)
+                        .showToast(requireContext())
                 }
             }
         }

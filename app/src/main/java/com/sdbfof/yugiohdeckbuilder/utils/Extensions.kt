@@ -14,6 +14,6 @@ fun YuGiOhResponse.toFName(context: Context): List<String?> {
 fun generateYuserId() =
     "${UUID.randomUUID()}-${System.currentTimeMillis().rotateLeft(Random().nextInt(7))}"
 
-fun String.showToast(context: Context, length: Int) {
+fun String.showToast(context: Context, length: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(context, this, length).show()
 }

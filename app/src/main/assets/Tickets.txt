@@ -1,8 +1,8 @@
-SDB-001
+SDB-001 -> ***completed***
 - Look into layout leaks
 - Refer to LeakCanary screenshots
 
-SDB-002
+SDB-002 -> ***completed***
 - UX log out features
     - User cannot log out
     - Pressing back on filter screen shows login Toast
@@ -20,6 +20,6 @@ SDB-004
         Create a deck
         Name, add to and delete from existing decks
 
-SDB-005
+SDB-005 ***completed***
 - On login page user can
-    Reset forgotten password
+    Save user information for easier login

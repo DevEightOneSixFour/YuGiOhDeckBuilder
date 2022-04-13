@@ -1,11 +1,13 @@
 package com.sdbfof.yugiohdeckbuilder.ui.account
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,17 +15,18 @@ import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.security.crypto.MasterKey
 import com.sdbfof.yugiohdeckbuilder.R
 import com.sdbfof.yugiohdeckbuilder.databinding.FragmentLoginBinding
-import com.sdbfof.yugiohdeckbuilder.utils.AccountStatus
-import com.sdbfof.yugiohdeckbuilder.utils.showToast
+import com.sdbfof.yugiohdeckbuilder.utils.*
 
-class LoginFragment: BaseAccountFragment() {
+class LoginFragment : BaseAccountFragment() {
     private var _binding: FragmentLoginBinding? = null
-    private val binding : FragmentLoginBinding
+    private val binding: FragmentLoginBinding
         get() = _binding!!
 
     private val viewModel by lazy { provideAccountViewModel() }
+    private val preferences by lazy { createPrefs() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,14 +37,12 @@ class LoginFragment: BaseAccountFragment() {
         createTextWatcher()
         configureObservers()
         createAccountLink()
+        readPreferences()
         binding.apply {
             tietUsername.addTextChangedListener(textWatcher)
             tietPassword.addTextChangedListener(textWatcher)
             btnLogin.setOnClickListener {
-                viewModel.signInWithUsernameAndPassword(
-                    binding.tietUsername.text.toString(),
-                    binding.tietPassword.text.toString()
-                )
+                saveYuserInfo(binding.cbLoginSave.isChecked)
             }
             btnDebug.setOnClickListener {
                 viewModel.fetchYuserData(binding.tietUsername.text.toString())
@@ -50,16 +51,7 @@ class LoginFragment: BaseAccountFragment() {
         }
         return binding.root
     }
-
-    override fun onStart() {
-        super.onStart()
-        viewModel.loggingOut()
-        binding.apply {
-            tietUsername.text?.clear()
-            tietPassword.text?.clear()
-        }
-    }
-
+    
     private fun configureObservers() {
         viewModel.accountStatus.observe(viewLifecycleOwner) { status ->
             when (status) {
@@ -68,10 +60,10 @@ class LoginFragment: BaseAccountFragment() {
                         .showToast(requireContext(), Toast.LENGTH_LONG)
                 }
                 AccountStatus.SIGNED_IN -> {
-                   resources.getString(
+                    resources.getString(
                         R.string.login_signed_in,
                         viewModel.currentYuser.value?.username
-                    ).showToast(requireContext(),Toast.LENGTH_LONG)
+                    ).showToast(requireContext(), Toast.LENGTH_LONG)
                     moveToFilters()
                 }
                 else -> {}
@@ -79,11 +71,51 @@ class LoginFragment: BaseAccountFragment() {
         }
     }
 
+    private fun createPrefs(): SharedPreferences =
+        YuserSharedPrefs.create(
+            context = requireContext(),
+            masterKey = MasterKey.Builder(requireContext().applicationContext)
+                .setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build()
+        )
+
+    private fun readPreferences() {
+        val key1 = preferences.getString(PREF_KEY_1, null)
+        val key2 = preferences.getString(PREF_KEY_2, null)
+        Log.d(TAG, "Username: $key1")
+        Log.d(TAG, "Password: $key2")
+
+        if (key1 != null && key2 != null) {
+            viewModel.signInWithUsernameAndPassword(key1, key2)
+        } else {
+            viewModel.loggingOut()
+            binding.apply {
+                tietUsername.text?.clear()
+                tietPassword.text?.clear()
+            }
+        }
+    }
+
+    private fun saveYuserInfo(shouldSave: Boolean) {
+        if (shouldSave) {
+            preferences.edit()
+                .putString(PREF_KEY_1, binding.tietUsername.text.toString())
+                .putString(PREF_KEY_2, binding.tietPassword.text.toString())
+                .apply()
+        }
+
+        Log.d(TAG, "KEY_1 -> ${preferences.getString(PREF_KEY_1, null)}")
+        Log.d(TAG, "KEY_2 -> ${preferences.getString(PREF_KEY_2, null)}")
+
+        viewModel.signInWithUsernameAndPassword(
+            binding.tietUsername.text.toString(),
+            binding.tietPassword.text.toString()
+        )
+    }
+
     private fun moveToFilters() {
         this.findNavController().navigate(
             LoginFragmentDirections.actionNavLoginToNavFilter(viewModel.currentYuser.value)
         )
-//        viewModel.clearAccountStatus()
     }
 
     private fun createTextWatcher() {
@@ -114,9 +146,9 @@ class LoginFragment: BaseAccountFragment() {
     }
 
     override fun onDestroyView() {
+        clearTextWatcher()
         super.onDestroyView()
         _binding = null
-        clearTextWatcher()
     }
 
     private fun debugToFilters() {
