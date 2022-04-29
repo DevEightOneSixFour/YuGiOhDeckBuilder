@@ -42,7 +42,7 @@ class LoginFragment : BaseAccountFragment() {
             tietUsername.addTextChangedListener(textWatcher)
             tietPassword.addTextChangedListener(textWatcher)
             btnLogin.setOnClickListener {
-                saveYuserInfo(binding.cbLoginSave.isChecked)
+                loginYuser(binding.cbLoginSave.isChecked)
             }
             btnDebug.setOnClickListener {
                 viewModel.fetchYuserData(binding.tietUsername.text.toString())
@@ -95,16 +95,13 @@ class LoginFragment : BaseAccountFragment() {
         }
     }
 
-    private fun saveYuserInfo(shouldSave: Boolean) {
+    private fun loginYuser(shouldSave: Boolean) {
         if (shouldSave) {
             preferences.edit()
                 .putString(PREF_KEY_1, binding.tietUsername.text.toString())
                 .putString(PREF_KEY_2, binding.tietPassword.text.toString())
                 .apply()
         }
-
-        Log.d(TAG, "KEY_1 -> ${preferences.getString(PREF_KEY_1, null)}")
-        Log.d(TAG, "KEY_2 -> ${preferences.getString(PREF_KEY_2, null)}")
 
         viewModel.signInWithUsernameAndPassword(
             binding.tietUsername.text.toString(),

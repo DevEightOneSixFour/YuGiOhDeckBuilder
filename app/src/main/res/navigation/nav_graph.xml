@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/nav_login">
 
     <fragment
         android:id="@+id/nav_login"
-        android:name="com.sdbfof.yugiohdeckbuilder.ui.account.LoginFragment">
+        android:name="com.sdbfof.yugiohdeckbuilder.ui.account.LoginFragment"
+        tools:layout="@layout/fragment_login">
 
         <action
             android:id="@+id/action_nav_login_to_nav_filter"
@@ -18,7 +20,8 @@
 
     <fragment
         android:id="@+id/nav_create_account"
-        android:name="com.sdbfof.yugiohdeckbuilder.ui.account.CreateAccountFragment">
+        android:name="com.sdbfof.yugiohdeckbuilder.ui.account.CreateAccountFragment"
+        tools:layout="@layout/fragment_create_account">
         <action
             android:id="@+id/action_nav_create_account_to_nav_login"
             app:destination="@id/nav_login"/>
@@ -26,7 +29,8 @@
 
     <fragment
         android:id="@+id/nav_filter"
-        android:name="com.sdbfof.yugiohdeckbuilder.ui.cards.FilterFragment">
+        android:name="com.sdbfof.yugiohdeckbuilder.ui.cards.FilterFragment"
+        tools:layout="@layout/fragment_filter">
 
         <action
             android:id="@+id/action_back_to_login"
@@ -51,7 +55,9 @@
 
     <fragment
         android:id="@+id/nav_card_list"
-        android:name="com.sdbfof.yugiohdeckbuilder.ui.cards.CardListFragment">
+        android:name="com.sdbfof.yugiohdeckbuilder.ui.cards.CardListFragment"
+        android:label="card_list_fragment"
+        tools:layout="@layout/fragment_card_list">
 
         <action
             android:id="@+id/action_back_to_login"
@@ -138,7 +144,9 @@
 
     <fragment
         android:id="@+id/nav_card_detail"
-        android:name="com.sdbfof.yugiohdeckbuilder.ui.cards.CardDetailsFragment">
+        android:name="com.sdbfof.yugiohdeckbuilder.ui.cards.CardDetailsFragment"
+        android:label="card_details_fragment"
+        tools:layout="@layout/fragment_details">
 
         <action
             android:id="@+id/action_back_to_login"

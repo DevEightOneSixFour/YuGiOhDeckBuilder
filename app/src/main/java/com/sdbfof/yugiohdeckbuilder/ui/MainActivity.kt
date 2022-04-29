@@ -2,6 +2,7 @@ package com.sdbfof.yugiohdeckbuilder.ui
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -123,4 +124,7 @@ class MainActivity : AppCompatActivity() {
             masterKey = MasterKey.Builder(applicationContext)
                 .setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build()
         )
+
+    // SetoKabia1
+    // *Bacon1234
 }

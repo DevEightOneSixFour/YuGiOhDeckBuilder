@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sdbfof.yugiohdeckbuilder.data.model.states.PageState
 import com.sdbfof.yugiohdeckbuilder.data.model.states.YUIState
-import com.sdbfof.yugiohdeckbuilder.data.model.yuser.Yuser
 import com.sdbfof.yugiohdeckbuilder.domain.CardUseCase
 import com.sdbfof.yugiohdeckbuilder.utils.CardType
 import com.sdbfof.yugiohdeckbuilder.utils.PAGE_SIZE
@@ -14,7 +13,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class CardViewModel(private val useCase: CardUseCase): ViewModel() {
+class CardViewModel(private val useCase: CardUseCase) : ViewModel() {
 
     private val _cardListLiveData = MutableLiveData<YUIState>()
     val cardListLiveData: LiveData<YUIState>
@@ -30,7 +29,7 @@ class CardViewModel(private val useCase: CardUseCase): ViewModel() {
 
     private val _currentType = MutableLiveData<CardType>()
     val currentType: LiveData<CardType>
-    get() = _currentType
+        get() = _currentType
 
     private val currentPageState = PageState()
 
@@ -51,7 +50,7 @@ class CardViewModel(private val useCase: CardUseCase): ViewModel() {
         language: String? = null,
         num: Int = PAGE_SIZE,
         offset: Int? = currentPageState.offset ?: 0
-    ){
+    ) {
         currentPageState.apply {
             this.name = name
             this.archetype = archetype
@@ -97,8 +96,8 @@ class CardViewModel(private val useCase: CardUseCase): ViewModel() {
                 _cardListLiveData.postValue(YUIState.Error(""))
             }
                 .collect {
-                _cardListLiveData.postValue(it)
-            }
+                    _cardListLiveData.postValue(it)
+                }
         }
     }
 

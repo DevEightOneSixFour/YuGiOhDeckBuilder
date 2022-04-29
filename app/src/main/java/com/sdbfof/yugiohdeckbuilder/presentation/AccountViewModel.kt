@@ -6,14 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 import com.sdbfof.yugiohdeckbuilder.data.model.yuser.Deck
 import com.sdbfof.yugiohdeckbuilder.data.model.yuser.Yuser
 import com.sdbfof.yugiohdeckbuilder.utils.AccountStatus
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 @Suppress("UNCHECKED_CAST")
 class AccountViewModel(

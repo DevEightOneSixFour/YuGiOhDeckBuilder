@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.sdbfof.yugiohdeckbuilder.data.model.states.YUIState
@@ -18,10 +21,7 @@ class CardListFragment : BaseCardFragment() {
     private var _binding: FragmentCardListBinding? = null
     private val binding: FragmentCardListBinding
         get() = _binding!!
-    private val viewModel by lazy {
-        println(provideCardViewModel().toString())
-        provideCardViewModel()
-    }
+    private val viewModel by lazy { provideCardViewModel() }
     private val args: CardListFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -117,12 +117,16 @@ class CardListFragment : BaseCardFragment() {
     }
 
     // TODO this function is needed for filter fragment, maybe place in MainActivity
-    private fun openCardDetail(card: Card) {
-        binding.root.findNavController().navigate(
-            CardListFragmentDirections.actionNavCardListToNavCardDetail(
-                card = card
-            )
-        )
+    private fun openCardDetail(card: Card, image: ImageView) {
+        val extras = FragmentNavigatorExtras(image to card.cardImages[0].imageUrl)
+
+        val action = CardListFragmentDirections.actionNavCardListToNavCardDetail(card = card)
+
+        with(findNavController()) {
+            currentDestination?.getAction(action.actionId) ?.let {
+                navigate(action, extras)
+            }
+        }
     }
 
     private fun fetchCardData() {

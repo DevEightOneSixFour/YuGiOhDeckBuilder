@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.TransitionInflater
 import com.bumptech.glide.Glide
 import com.sdbfof.yugiohdeckbuilder.R
 import com.sdbfof.yugiohdeckbuilder.databinding.CardDetailsListViewBinding
@@ -33,13 +34,18 @@ class CardDetailsFragment : BaseCardFragment() {
 
     private val cardViewModel by lazy { provideCardViewModel() }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDetailsBinding.inflate(layoutInflater)
+//        _binding = FragmentDetailsBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -47,13 +53,15 @@ class CardDetailsFragment : BaseCardFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         createListViews()
-
+        binding.ivLargeCard.apply {
+            transitionName = args.card.cardImages[0].imageUrl
+        }
         Glide.with(binding.ivLargeCard)
             .load(args.card.cardImages[0].imageUrl)
-            .placeholder(ResourcesCompat.getDrawable(resources, R.drawable.back_ground, null))
             .into(binding.ivLargeCard)
 
         binding.apply {
+
             btnViewPrices.setOnClickListener {
                 handleButtonClick(it as Button)
             }
