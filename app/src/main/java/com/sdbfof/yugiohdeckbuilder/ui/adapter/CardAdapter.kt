@@ -1,9 +1,9 @@
 package com.sdbfof.yugiohdeckbuilder.ui.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sdbfof.yugiohdeckbuilder.R
@@ -13,7 +13,7 @@ import com.sdbfof.yugiohdeckbuilder.utils.PLACEHOLDER_GIF
 
 class CardAdapter(
     private val cardList: List<Card>,
-    private val details: (Card) -> Unit
+    private val details: (Card, ImageView) -> Unit
 ) : RecyclerView.Adapter<CardViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -22,8 +22,7 @@ class CardAdapter(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            ),
-            parent.context
+            )
         )
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
@@ -35,11 +34,10 @@ class CardAdapter(
 }
 
 class CardViewHolder(
-    private val binding: CardRowItemBinding,
-    private val context: Context
+    private val binding: CardRowItemBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun onBind(card: Card, details: (Card) -> Unit) {
+    fun onBind(card: Card, details: (Card,ImageView) -> Unit) {
         binding.tvCardName.text = card.name
 
         Glide.with(binding.ivCardThumbnail)
@@ -49,9 +47,8 @@ class CardViewHolder(
             .dontAnimate()
             .into(binding.ivCardThumbnail)
 
-
         binding.root.apply {
-            setOnClickListener { details(card) }
+            setOnClickListener { details(card,binding.ivCardThumbnail) }
             animation = AnimationUtils.loadAnimation(context, R.anim.row_item_anim)
         }
     }

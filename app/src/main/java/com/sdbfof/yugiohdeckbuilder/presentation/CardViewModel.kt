@@ -147,6 +147,9 @@ class CardViewModel(private val useCase: CardUseCase): ViewModel() {
         }
     }
 
+    fun setCardListLoading() {
+        _cardListLiveData.value = YUIState.Loading
+    }
     fun getPageState() = currentPageState
 
 }

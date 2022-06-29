@@ -3,14 +3,11 @@ package com.sdbfof.yugiohdeckbuilder.ui
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.sdbfof.yugiohdeckbuilder.R
 import com.sdbfof.yugiohdeckbuilder.databinding.ActivityMainBinding
@@ -21,7 +18,6 @@ import com.sdbfof.yugiohdeckbuilder.ui.cards.CardDetailsFragmentDirections
 import com.sdbfof.yugiohdeckbuilder.ui.cards.CardListFragmentDirections
 import com.sdbfof.yugiohdeckbuilder.ui.cards.FilterFragmentDirections
 import com.sdbfof.yugiohdeckbuilder.utils.*
-import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 
@@ -114,7 +110,7 @@ class MainActivity : AppCompatActivity() {
         if (binding.hostFragment.findNavController().currentDestination!!.id == R.id.nav_filter) {
             showLogOutAlert(R.id.nav_filter)
         }
-        super.onBackPressed()
+        else super.onBackPressed()
     }
 
     private fun createPrefs(): SharedPreferences =

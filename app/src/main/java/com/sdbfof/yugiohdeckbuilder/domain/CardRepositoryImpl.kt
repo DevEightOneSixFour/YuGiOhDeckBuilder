@@ -25,8 +25,6 @@ class CardRepositoryImpl(private val service: ApiService) : CardRepository {
         offset: Int?
     ): Flow<YUIState> =
         flow {
-            emit(YUIState.Loading)
-
             val response = service.getCards(
                 name = name,
                 archetype = archetype,

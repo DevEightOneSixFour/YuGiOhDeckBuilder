@@ -37,13 +37,6 @@ class FilterFragment : BaseCardFragment() {
     ): View {
         _binding = FragmentFilterBinding.inflate(layoutInflater)
         configureObservers()
-
-        callback = object: OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                logoutCheck()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(callback as OnBackPressedCallback)
         return binding.root
     }
 
@@ -78,7 +71,7 @@ class FilterFragment : BaseCardFragment() {
         val listOfFilters = mutableListOf<String>()
         when (viewModel.currentType.value) {
             CardType.NAME -> {
-                if (binding.actvFname.text.toString() == "") {
+                if (binding.actvFname.text.isBlank()) {
                     showAlert = false
                     binding.actvFname.error = resources.getString(R.string.please_enter_card_name)
                 } else {
@@ -142,6 +135,7 @@ class FilterFragment : BaseCardFragment() {
     }
 
     fun moveToCardList() {
+        viewModel.setCardListLoading()
         this.findNavController().navigate(
             FilterFragmentDirections.actionNavFilterToNavCardList(
                 fName = getByCardName(),
@@ -396,10 +390,6 @@ class FilterFragment : BaseCardFragment() {
             resources.getStringArray(R.array.languages)[4] -> PORTUGUESE
             else -> null
         }
-    }
-
-    private fun logoutCheck() {
-
     }
 
     override fun onDestroyView() {
