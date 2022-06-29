@@ -4,9 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigator
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
+import com.sdbfof.yugiohdeckbuilder.R
 import com.sdbfof.yugiohdeckbuilder.data.model.states.YUIState
 import com.sdbfof.yugiohdeckbuilder.data.model.response.Card
 import com.sdbfof.yugiohdeckbuilder.databinding.FragmentCardListBinding
@@ -31,7 +35,6 @@ class CardListFragment : BaseCardFragment() {
     ): View {
         _binding = FragmentCardListBinding.inflate(layoutInflater)
         configureObservers()
-        fetchCardData()
         return binding.root
     }
 
@@ -56,6 +59,7 @@ class CardListFragment : BaseCardFragment() {
     private fun updateYUI(state: YUIState) {
         when (state) {
             is YUIState.Loading -> {
+                fetchCardData()
                 binding.apply {
                     progressBar.visibility = View.VISIBLE
                     tvErrorText.visibility = View.GONE
@@ -117,11 +121,18 @@ class CardListFragment : BaseCardFragment() {
     }
 
     // TODO this function is needed for filter fragment, maybe place in MainActivity
-    private fun openCardDetail(card: Card) {
-        binding.root.findNavController().navigate(
-            CardListFragmentDirections.actionNavCardListToNavCardDetail(
+    private fun openCardDetail(card: Card, imageView: ImageView) {
+        imageView.transitionName = resources.getString(R.string.selected_card_for_animation)
+        val extras = FragmentNavigator.Extras.Builder()
+            .addSharedElement(imageView, resources.getString(R.string.selected_card_for_animation))
+            .build()
+
+        binding.root.findNavController()
+            .navigate(
+                CardListFragmentDirections.actionNavCardListToNavCardDetail(
                 card = card
-            )
+            ),
+                extras
         )
     }
 

@@ -90,6 +90,7 @@
     <string name="error_response">Empty Response</string>
     <string name="cannot_find">Cannot Find Name</string>
     <string name="error_no_card_type">Please Select A Card Type</string>
+    <string name="selected_card_for_animation">This Card</string>
 
     <!--  Parameter Arrays  -->
     <!--  Monster  -->
