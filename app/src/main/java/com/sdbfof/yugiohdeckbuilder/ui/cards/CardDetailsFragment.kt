@@ -2,6 +2,8 @@ package com.sdbfof.yugiohdeckbuilder.ui.cards
 
 import android.app.Dialog
 import android.os.Bundle
+import android.transition.ChangeBounds
+import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +42,7 @@ class CardDetailsFragment : BaseCardFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailsBinding.inflate(layoutInflater)
+        sharedElementEnterTransition = ChangeBounds()
         return binding.root
     }
 
@@ -48,10 +51,10 @@ class CardDetailsFragment : BaseCardFragment() {
 
         createListViews()
 
-        Glide.with(binding.ivLargeCard)
-            .load(args.card.cardImages[0].imageUrl)
-            .placeholder(ResourcesCompat.getDrawable(resources, R.drawable.back_ground, null))
-            .into(binding.ivLargeCard)
+//        Glide.with(binding.ivLargeCard)
+//            .load(args.card.cardImages[0].imageUrl)
+//            .placeholder(ResourcesCompat.getDrawable(resources, R.drawable.back_ground, null))
+//            .into(binding.ivLargeCard)
 
         binding.apply {
             btnViewPrices.setOnClickListener {

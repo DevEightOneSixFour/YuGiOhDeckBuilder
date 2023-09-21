@@ -103,9 +103,6 @@ class LoginFragment : BaseAccountFragment() {
                 .apply()
         }
 
-        Log.d(TAG, "KEY_1 -> ${preferences.getString(PREF_KEY_1, null)}")
-        Log.d(TAG, "KEY_2 -> ${preferences.getString(PREF_KEY_2, null)}")
-
         viewModel.signInWithUsernameAndPassword(
             binding.tietUsername.text.toString(),
             binding.tietPassword.text.toString()
